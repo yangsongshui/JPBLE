@@ -60,4 +60,14 @@ public class Constant {
         Log.e("jiami", ToHex.bytesToHex(bytes) + " " + ToHex.byteToHex(num1) + " " + msg2);
         return msg2;
     }
+
+    public static String jiemi(byte[] msg) {
+        byte[] data = new byte[msg.length - 4];
+        byte num = (byte) (msg[1] - 0x32);
+        for (int i = 2, j = 0; i < msg.length - 2; i++, j++) {
+            data[j] = (byte) (msg[i] ^ num);
+        }
+        Log.e("jiemi", ToHex.bytesToHex(data));
+        return ToHex.bytesToHex(data);
+    }
 }

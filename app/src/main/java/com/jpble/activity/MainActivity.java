@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.jpble.R;
 import com.jpble.base.BaseActivity;
 import com.jpble.utils.Constant;
+import com.jpble.utils.ToHex;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -38,6 +39,7 @@ public class MainActivity extends BaseActivity {
         initPermission();
         setHideAnimation(2000);
         Log.e("getData", Constant.getData("FE6634253C4D7B60597F01044E"));
+        Log.e("getData", Constant.jiemi(ToHex.hexStringToBytes("FE3cf51b0bf57cc1")));
 
     }
 
@@ -117,7 +119,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void initPermission(){
+    private void initPermission() {
         MPermissions.requestPermissions(this, REQUECT_CODE_COARSE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }

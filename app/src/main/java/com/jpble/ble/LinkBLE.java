@@ -210,6 +210,6 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
     }
 
     private void getData(byte[] data) {
-
+        Constant.jiemi(data);
     }
 }
