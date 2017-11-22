@@ -40,6 +40,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/equipment_time_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
@@ -50,36 +51,17 @@
             android:padding="10dp"
             android:text="@string/equipment_time" />
 
-        <LinearLayout
-            android:layout_width="50dp"
+
+        <TextView
+            android:id="@+id/equipment_time"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:layout_marginEnd="10dp"
+            android:text="1min" />
 
-            <TextView
-                android:id="@+id/equipment_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="40S" />
 
-            <com.jpble.widget.ListenerKeyBackEditText
-                android:id="@+id/time_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:inputType="number"
-                android:maxLines="1"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
-                android:textSize="12sp"
-                android:visibility="gone" />
-        </LinearLayout>
     </RelativeLayout>
 
     <View
@@ -88,45 +70,55 @@
         android:background="#F5F5F5" />
 
     <RelativeLayout
+        android:id="@+id/equipment_intensity_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <TextView
+            android:id="@+id/equipment_intensity"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/equipment_intensity" />
-
-        <LinearLayout
-
-            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="end|center_vertical"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:layout_marginEnd="10dp"
+            android:text="1" />
 
-            <TextView
-                android:id="@+id/equipment_intensity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="4" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="10dp"
+            android:text="@string/equipment_intensity" />
 
-            <com.jpble.widget.ListenerKeyBackEditText
-                android:id="@+id/intensity_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
-                android:textSize="12sp"
-                android:visibility="gone" />
-        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/equipment_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            app:kswBackDrawable="@drawable/set_auto"
+            app:kswThumbColor="@color/white" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="10dp"
+            android:text="@string/equipment_gps" />
     </RelativeLayout>
 </LinearLayout>

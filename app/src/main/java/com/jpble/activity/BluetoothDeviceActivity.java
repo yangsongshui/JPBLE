@@ -6,9 +6,11 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
@@ -27,6 +29,8 @@ import com.jpble.app.MyApplication;
 import com.jpble.base.BaseActivity;
 import com.jpble.ble.BLEDevice;
 import com.jpble.ble.LinkBLE;
+import com.jpble.utils.Constant;
+import com.jpble.utils.ToHex;
 import com.jpble.utils.Toastor;
 import com.jpble.widget.CommomDialog;
 
@@ -35,6 +39,10 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
+import static com.jpble.utils.Constant.SUCCESSFUL_DEVICE_CONNECTION;
+import static com.jpble.utils.ToHex.StringToHex2;
 
 public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheckListener, View.OnClickListener {
 
@@ -62,6 +70,7 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
     private MyApplication myApp;
     String mac = "";
     private CommomDialog dialog;
+
     @Override
     protected int getContentView() {
         return R.layout.activity_bluetooth_device;
@@ -81,6 +90,10 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
         initBLE();
         handler = new Handler();
         dialog.setOnClickListener(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(SUCCESSFUL_DEVICE_CONNECTION);
+        intentFilter.addAction(EQUIPMENT_DISCONNECTED);
+        registerReceiver(notifyReceiver, intentFilter);
     }
 
 
@@ -102,6 +115,7 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
                 break;
         }
     }
+
     /**
      * 扫描设备
      *
@@ -129,6 +143,7 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
         }
         invalidateOptionsMenu();
     }
+
     private void initView() {
         pd = new ProgressDialog(this);
         pd.setMessage("设备连接中");
@@ -139,6 +154,7 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
         bleRv.setAdapter(adapter);
         adapter.setOnItemCheckListener(this);
     }
+
     @SuppressLint("NewApi")
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
@@ -151,10 +167,10 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
                         final BLEDevice bleDevice = new BLEDevice(device, rssi);
                         //判断是否存在相同的设备
 
-                            if (adapter != null && !devicesMap.containsKey(device.getAddress())) {
-                                adapter.setDevice(bleDevice);
-                                devicesMap.put(device.getAddress(), bleDevice);
-                            }
+                        if (adapter != null && !devicesMap.containsKey(device.getAddress())) {
+                            adapter.setDevice(bleDevice);
+                            devicesMap.put(device.getAddress(), bleDevice);
+                        }
 
                     }
                 }
@@ -198,6 +214,7 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
             builder.create().show();
         }
     }
+
     private static final int REQUEST_CODE_LOCATION_SETTINGS = 2;
 
     public static final boolean isLocationEnable(Context context) {
@@ -240,14 +257,31 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
         String msg = dialog.getMsg();
         if (!msg.equals("")) {
             pd.show();
-            // String key = Instruction.PASSWORD + StringToHex2(msg);
-          /*  key = getData(key);
+            String key = "001108" + StringToHex2(msg);
             myApp.deviceKey = key;
             if (linkBLE.isLink()) {
-                linkBLE.write(key);
+                linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
             } else {
                 linkBLE.LinkBluetooth(mac);
-            }*/
+            }
         }
     }
+
+    private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i("BluetoothActivity", intent.getAction());
+            //设备
+            if (SUCCESSFUL_DEVICE_CONNECTION.equals(intent.getAction())) {
+                toastor.showSingletonToast(getResources().getString(R.string.toastor_msg));
+                finish();
+            } else if (EQUIPMENT_DISCONNECTED.equals(intent.getAction())) {
+
+                 toastor.showSingletonToast(getResources().getString(R.string.toastor_msg2));
+            }
+            if (pd.isShowing()){
+                pd.dismiss();
+            }
+        }
+    };
 }

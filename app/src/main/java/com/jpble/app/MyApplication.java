@@ -21,6 +21,7 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     public static List<Activity> activitiesList = new ArrayList<Activity>(); // 活动管理集合
     public String deviceKey="";
+    public String KEY;
     public String updateKey="";
     /**
      * 是否连接绑定了设备

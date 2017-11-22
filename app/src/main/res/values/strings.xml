@@ -28,6 +28,7 @@
     <string name="trip_total">Total ride</string>
     <string name="equipment_time">Set track interval time</string>
     <string name="equipment_intensity">Setting shock intensity</string>
+    <string name="equipment_gps">GPS</string>
     <string name="ble_paired">Paired device</string>
     <string name="ble_disconnect">disconnect</string>
     <string name="ble_connected">connected</string>
@@ -45,11 +46,18 @@
     <string name="dialog_bt2">Cancel</string>
     <string name="dialog_title">Verify the device management password</string>
     <string name="dialog_msg">Enter password:</string>
-    <string name="dialog_msg2">The default password is 1234456789</string>
+    <string name="dialog_msg2">Default password is 123456789</string>
     <string name="sim_title">SIM Card management</string>
     <string name="sim_set">Set SIM card number</string>
     <string name="sim_expiration">SIM card expiration settings</string>
-
+    <string name="toastor_msg">Communication access to success</string>
+    <string name="toastor_msg2">Communication access failure</string>
+    <string name="radio_a">1 Gears</string>
+    <string name="radio_b">2 Gears</string>
+    <string name="radio_c">3 Gears</string>
+    <string name="user_group2">Gear set</string>
+    <string name="user_name2">Modify the tracking interval</string>
+    <string name="dialog_msg7">Minutes:</string>
 
     <!--device manage-->
     <string name="activity_btn_close">Shut down</string>

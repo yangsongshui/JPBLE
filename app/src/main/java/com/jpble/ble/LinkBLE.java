@@ -13,13 +13,22 @@ import android.util.Log;
 
 import com.jpble.app.MyApplication;
 import com.jpble.utils.Constant;
+import com.jpble.utils.SpUtils;
 import com.jpble.utils.ToHex;
 
+import static com.jpble.utils.Constant.ACTION_BLE_KEY_OPERATE_SUCCESSFULLY;
 import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
+import static com.jpble.utils.Constant.GPS;
+import static com.jpble.utils.Constant.LOCK_STATUS;
+import static com.jpble.utils.Constant.SECURITY_SWITCH;
 import static com.jpble.utils.Constant.SUCCESSFUL_DEVICE_CONNECTION;
+import static com.jpble.utils.Constant.TRACKING_INTERVAL;
 import static com.jpble.utils.Constant.UUID_CHARACTERISTIC_CONTROL;
 import static com.jpble.utils.Constant.UUID_CHARACTERISTIC_NOTIFY_DATA;
 import static com.jpble.utils.Constant.UUID_SERVICE;
+import static com.jpble.utils.Constant.VIBRATION_LEVEL;
+import static com.jpble.utils.Constant.VIBRATION_SWITCH;
+import static com.jpble.utils.SpUtils.getString;
 
 
 /**
@@ -35,6 +44,7 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
     private boolean isLink = false;
     private String address;
     private Runnable runnable2;
+    private Runnable runnable;
 
     public String getAddress() {
         return address;
@@ -70,7 +80,20 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
             public void run() {
                 //  write(Constant.COMMAND_KEY + MyApplication.newInstance().connectKey);
                 handler.postDelayed(runnable2, 1000);
-                write(Constant.jiami("FE", 52, "001108794f546d4b35307a"));
+                write(Constant.jiami("FE", ToHex.random(), "001108794f546d4b35307a"));
+            }
+        };
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                String gps = SpUtils.getBoolean(GPS, true) ? "01" : "02";
+                String interval = ToHex.StringToHex3(String.valueOf(SpUtils.getInt(TRACKING_INTERVAL, 1)));
+                String status = getString(LOCK_STATUS, "01");
+                String leve = SpUtils.getString(VIBRATION_LEVEL, "01");
+                String security = SpUtils.getBoolean(SECURITY_SWITCH, false) ? "01" : "02";
+                String vibration = SpUtils.getBoolean(VIBRATION_SWITCH, true) ? "01" : "02";
+                String msg = MyApplication.newInstance().KEY + "1208" + security + status + vibration + leve + gps + interval;
+                write(Constant.jiami("FE", ToHex.random(), msg));
             }
         };
     }
@@ -210,6 +233,40 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
     }
 
     private void getData(byte[] data) {
-        Constant.jiemi(data);
+        byte[] bytes = Constant.jiemi(data);
+        Intent intent = new Intent();
+        switch (bytes[1]) {
+            case 11:
+                //通讯权限获取
+                intent.setAction(SUCCESSFUL_DEVICE_CONNECTION);
+                context.sendBroadcast(intent);
+                MyApplication.newInstance().KEY = ToHex.byteToHex(bytes[3]);
+                handler.postDelayed(runnable, 500);
+                break;
+            case 12:
+                intent.setAction(ACTION_BLE_KEY_OPERATE_SUCCESSFULLY);
+                context.sendBroadcast(intent);
+                break;
+            case 13:
+                break;
+            case 31:
+                ToHex.byteToHex(data[3]);//电量
+                ToHex.byteToHex(data[4]);//防盗开关
+                ToHex.byteToHex(data[5]);//锁车状态
+                ToHex.byteToHex(data[6]);//震动开关
+                ToHex.byteToHex(data[7]);//震动等级
+                ToHex.byteToHex(data[8]);//gps
+                ToHex.bytesToHex(new byte[]{data[9], data[10]});//定位间隔
+                ToHex.byteToHex(data[11]);//定位间隔
+                ToHex.byteToHex(data[12]);//主版本号
+                ToHex.byteToHex(data[13]);//次版本号
+                ToHex.byteToHex(data[14]);//版本修改次数
+                break;
+            case 21:
+                ToHex.byteToHex(data[3]);//开锁状态
+                break;
+            default:
+                break;
+        }
     }
 }

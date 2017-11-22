@@ -42,5 +42,6 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
     apt 'com.zhy:mpermission-compiler:1.0.0'
+    compile 'com.kyleduo.switchbutton:library:1.4.6'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

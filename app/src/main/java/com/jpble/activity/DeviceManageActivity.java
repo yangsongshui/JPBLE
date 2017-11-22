@@ -14,6 +14,8 @@ import com.jpble.R;
 import com.jpble.app.MyApplication;
 import com.jpble.base.BaseActivity;
 import com.jpble.ble.LinkBLE;
+import com.jpble.utils.Constant;
+import com.jpble.utils.ToHex;
 import com.jpble.utils.Toastor;
 
 import butterknife.OnClick;
@@ -99,6 +101,8 @@ public class DeviceManageActivity extends BaseActivity {
 
     private void shutDownDevice() {
         // if (linkBLE.write(Constant.getData(Constant.COMMAND_INFO1, "05", "01000000"))) {
+        MyApplication.newInstance().bindMac = "";
+        linkBLE.closeBle();
 
 
     }
@@ -131,6 +135,8 @@ public class DeviceManageActivity extends BaseActivity {
 
         final Button btnPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         btnPositive.setEnabled(false);*/
+        String key = "13010100";
+        linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
 
     }
 
@@ -165,7 +171,9 @@ public class DeviceManageActivity extends BaseActivity {
         builder.setPositiveButton(R.string.activity_dialog_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                String key = "13010001";
+                linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
+                handler.postDelayed(myRunnable, 2000);
             }
         });
         builder.setNegativeButton(R.string.activity_dialog_cancel, new DialogInterface.OnClickListener() {

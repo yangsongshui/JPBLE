@@ -1,5 +1,6 @@
 package com.jpble.utils;
 
+import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -109,6 +110,52 @@ public class ToHex {
         return str;
     }
 
+    public static String StringToHex2(String string) {
+        String hex = "";
+        hex = Integer.toHexString(Integer.parseInt(string));
+        if (hex.length() == 1) {
+            hex = "0000000" + hex;
+
+        } else if (hex.length() == 2) {
+            hex = "000000" + hex;
+
+        } else if (hex.length() == 3) {
+            hex = "00000" + hex;
+
+        } else if (hex.length() == 4) {
+            hex = "0000" + hex;
+
+        } else if (hex.length() == 5) {
+            hex = "000" + hex;
+
+        } else if (hex.length() == 6) {
+            hex = "00" + hex;
+
+        } else if (hex.length() == 7) {
+            hex = "0" + hex;
+
+        }
+
+        return hex;
+    }
+
+    public static String StringToHex3(String string) {
+        String hex = "";
+        hex = Integer.toHexString(Integer.parseInt(string));
+        if (hex.length() == 1) {
+            hex = "000" + hex;
+
+        } else if (hex.length() == 2) {
+            hex = "00" + hex;
+
+        } else if (hex.length() == 3) {
+            hex = "0" + hex;
+
+        }
+
+        return hex;
+    }
+
     /**
      * 累加和公式
      *
@@ -176,6 +223,7 @@ public class ToHex {
         }
         return (byte) re;
     }
+
     public static String byteToHex(byte data) {
         String hex = "";
         hex = Integer.toHexString((data & 0xFF));
@@ -184,5 +232,10 @@ public class ToHex {
 
         }
         return hex;
+    }
+
+    public static int random() {
+        Random random = new Random();
+        return random.nextInt(256);
     }
 }
