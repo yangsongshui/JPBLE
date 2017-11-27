@@ -49,6 +49,7 @@
     <string name="dialog_msg2">Default password is 123456789</string>
     <string name="sim_title">SIM Card management</string>
     <string name="sim_set">Set SIM card number</string>
+    <string name="sim_set2">Card Number:</string>
     <string name="sim_expiration">SIM card expiration settings</string>
     <string name="toastor_msg">Communication access to success</string>
     <string name="toastor_msg2">Communication access failure</string>
@@ -58,6 +59,8 @@
     <string name="user_group2">Gear set</string>
     <string name="user_name2">Modify the tracking interval</string>
     <string name="dialog_msg7">Minutes:</string>
+    <string name="about_msg">Software version information :v%s</string>
+    <string name="about_msg2">Hardware version information :v%s</string>
 
     <!--device manage-->
     <string name="activity_btn_close">Shut down</string>
@@ -82,4 +85,5 @@
     <string name="close_and_unpairing_device_tip">Sure you want to shut down the device!</string>
     <string name="activity_dialog_ok">ok</string>
     <string name="activity_dialog_title_input_key">input connect key</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

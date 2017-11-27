@@ -1,7 +1,9 @@
 package com.jpble.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -45,12 +47,13 @@ public class SecurityFragment extends BaseFragment implements View.OnClickListen
 
 
     @Override
-    protected void initData(View layout, Bundle savedInstanceState) {
+    protected void initData(View layout, LayoutInflater inflater, ViewGroup container,
+                            Bundle savedInstanceState) {
         initView();
         securityPowerCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String key = MyApplication.newInstance().KEY + "12080000" + (isChecked ? "01" : "02") + "00000000";
+                String key = MyApplication.newInstance().KEY + "12070000" + (isChecked ? "01" : "02") + "00000000";
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
                 SpUtils.putBoolean(VIBRATION_SWITCH, isChecked);
                 //linkBLE.write(Constant.jiami("FE", ToHex.random(), "2109000000000000000001")); //开锁指令
@@ -93,7 +96,7 @@ public class SecurityFragment extends BaseFragment implements View.OnClickListen
         securityOnCb.setTextColor(getResources().getColor(v.getId() == R.id.security_on_cb ? R.color.blue3 : R.color.black));
         securityOffCb.setTextColor(getResources().getColor(v.getId() == R.id.security_off_cb ? R.color.blue3 : R.color.black));
         SpUtils.putString(LOCK_STATUS, security);
-        String key = MyApplication.newInstance().KEY + "1208" + security + "000000000000";
+        String key = MyApplication.newInstance().KEY + "1207" + security + "000000000000";
         linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
     }
 

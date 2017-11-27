@@ -12,10 +12,27 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        config {
+            keyAlias 'GpsSecurity'
+            keyPassword 'gpssecurity2017.'
+            storeFile file('GpsSecurity.jks')
+            storePassword 'gpssecurity2017.'
+        }
+        robert{
+            storePassword 'gpssecurity2017.'
+            storeFile file('GpsSecurity.jks')
+            keyPassword 'gpssecurity2017.'
+            keyAlias 'GpsSecurity'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -40,8 +57,9 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.kyleduo.switchbutton:library:1.4.6'
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
     testCompile 'junit:junit:4.12'
     apt 'com.zhy:mpermission-compiler:1.0.0'
-    compile 'com.kyleduo.switchbutton:library:1.4.6'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

@@ -82,7 +82,7 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
                         break;
                 }
                 SpUtils.putString(VIBRATION_LEVEL, gears);
-                String key = MyApplication.newInstance().KEY + "1208000000" + gears + "000000";
+                String key = MyApplication.newInstance().KEY + "1207000000" + gears + "000000";
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
                 radioDialog.dismiss();
                 pd.show();
@@ -117,7 +117,7 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View view) {
         String msg = editDialog.getMsg();
         if (!msg.equals("")) {
-            String key = MyApplication.newInstance().KEY + "12080000000000" + StringToHex3(msg);
+            String key = MyApplication.newInstance().KEY + "12070000000000" + StringToHex3(msg);
             linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
             editDialog.dismiss();
             pd.show();
@@ -131,7 +131,7 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-        String key = MyApplication.newInstance().KEY + "120800000000" + (b ? "01" : "02") + "0000";
+        String key = MyApplication.newInstance().KEY + "120700000000" + (b ? "01" : "02") + "0000";
         linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
         pd.show();
         SpUtils.putBoolean(GPS, b);

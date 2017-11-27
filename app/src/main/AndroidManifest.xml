@@ -51,7 +51,12 @@
         <activity android:name=".activity.TripActivity" />
         <activity android:name=".activity.EquipmentActivity" />
         <activity android:name=".activity.DeviceManageActivity" />
-        <activity android:name=".activity.SimManageActivity"></activity>
+        <activity android:name=".activity.SimManageActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
     </application>
 
 </manifest>

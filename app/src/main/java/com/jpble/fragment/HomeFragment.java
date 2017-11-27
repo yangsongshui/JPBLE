@@ -1,7 +1,9 @@
 package com.jpble.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -46,7 +48,8 @@ public class HomeFragment extends BaseFragment {
 
 
     @Override
-    protected void initData(View layout, Bundle savedInstanceState) {
+    protected void initData(View layout,  LayoutInflater inflater, ViewGroup container,
+                            Bundle savedInstanceState) {
         homeLock.setChecked(SpUtils.getBoolean(SECURITY_SWITCH, false));
         linkBLE = MyApplication.newInstance().getBleManager();
         Animation circle_anim = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_round_rotate);
@@ -58,7 +61,7 @@ public class HomeFragment extends BaseFragment {
         homeLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                String key = MyApplication.newInstance().KEY + "120800" + (b ? "01" : "02") + "0000000000";
+                String key = MyApplication.newInstance().KEY + "120700" + (b ? "01" : "02") + "0000000000";
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
                 SpUtils.putBoolean(SECURITY_SWITCH, b);
             }

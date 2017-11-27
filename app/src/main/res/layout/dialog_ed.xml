@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/user_name2"
         android:textColor="@color/black2" />
 
@@ -47,9 +49,8 @@
             android:layout_toStartOf="@+id/ed_re"
             android:background="@null"
             android:gravity="left"
-            android:padding="5dp"
-            android:maxLength="9"
             android:inputType="numberDecimal"
+            android:padding="5dp"
             android:textColor="@color/spindle"
             android:textSize="12sp" />
 
@@ -83,7 +84,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="horizontal">
 
         <TextView
@@ -93,7 +93,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_dialog_left_white"
             android:gravity="center"
-            android:padding="15dp"
+            android:padding="10dp"
             android:text="@string/dialog_bt2"
             android:textColor="@color/black"
             android:textSize="12sp" />
@@ -110,7 +110,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_dialog_left_white"
             android:gravity="center"
-            android:padding="15dp"
+            android:padding="10dp"
             android:text="@string/dialog_bt"
             android:textColor="@color/black"
             android:textSize="12sp" />

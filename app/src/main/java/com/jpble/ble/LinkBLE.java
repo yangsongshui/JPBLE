@@ -29,6 +29,7 @@ import static com.jpble.utils.Constant.UUID_SERVICE;
 import static com.jpble.utils.Constant.VIBRATION_LEVEL;
 import static com.jpble.utils.Constant.VIBRATION_SWITCH;
 import static com.jpble.utils.SpUtils.getString;
+import static com.jpble.utils.ToHex.byteToHex;
 
 
 /**
@@ -78,9 +79,9 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
         runnable2 = new Runnable() {
             @Override
             public void run() {
-                //  write(Constant.COMMAND_KEY + MyApplication.newInstance().connectKey);
-                handler.postDelayed(runnable2, 1000);
-                write(Constant.jiami("FE", ToHex.random(), "001108794f546d4b35307a"));
+                // write(Constant.COMMAND_KEY + MyApplication.newInstance().connectKey);
+                // handler.postDelayed(runnable2, 1000);
+                write(Constant.jiami("FE", ToHex.random(), MyApplication.newInstance().deviceKey));
             }
         };
         runnable = new Runnable() {
@@ -92,7 +93,7 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
                 String leve = SpUtils.getString(VIBRATION_LEVEL, "01");
                 String security = SpUtils.getBoolean(SECURITY_SWITCH, false) ? "01" : "02";
                 String vibration = SpUtils.getBoolean(VIBRATION_SWITCH, true) ? "01" : "02";
-                String msg = MyApplication.newInstance().KEY + "1208" + security + status + vibration + leve + gps + interval;
+                String msg = MyApplication.newInstance().KEY + "1207" + security + status + vibration + leve + gps + interval;
                 write(Constant.jiami("FE", ToHex.random(), msg));
             }
         };
@@ -115,6 +116,7 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
         @Override
         public void onServiceDiscover(BluetoothGatt gatt) {
             Log.i(TAG, "发现服务" + gatt.getDevice().getName());
+            getService(gatt);
             BluetoothGattService bleGattService = gatt.getService(UUID_SERVICE);
             writeChara = bleGattService.getCharacteristic(UUID_CHARACTERISTIC_CONTROL);
             notifiChara = bleGattService.getCharacteristic(UUID_CHARACTERISTIC_NOTIFY_DATA);
@@ -123,11 +125,6 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
             handler.postDelayed(runnable2, 500);
             MyApplication.newInstance().isBind = true;
             setIsLink(true);
-            Intent intent = new Intent();
-            intent.setAction(SUCCESSFUL_DEVICE_CONNECTION);
-            context.sendBroadcast(intent);
-            isRing = false;
-            handler.removeCallbacks(runnable2);
         }
 
     };
@@ -218,9 +215,7 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
     }
 
     public void closeBle() {
-
         setIsLink(false);
-        isRing = true;
         mBLE.close();
         mBLE.disconnect();
         handler.removeCallbacks(runnable2);
@@ -234,39 +229,63 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
 
     private void getData(byte[] data) {
         byte[] bytes = Constant.jiemi(data);
+        Log.e("getData", byteToHex(bytes[1]));
         Intent intent = new Intent();
         switch (bytes[1]) {
-            case 11:
+            case 0x11:
                 //通讯权限获取
-                intent.setAction(SUCCESSFUL_DEVICE_CONNECTION);
-                context.sendBroadcast(intent);
-                MyApplication.newInstance().KEY = ToHex.byteToHex(bytes[3]);
-                handler.postDelayed(runnable, 500);
+                if (bytes[3] == 0) {
+                    handler.removeCallbacks(runnable2);
+                    intent.setAction(SUCCESSFUL_DEVICE_CONNECTION);
+                    context.sendBroadcast(intent);
+                    MyApplication.newInstance().KEY = byteToHex(bytes[4]);
+              /*      String msg = MyApplication.newInstance().KEY + "3100";
+                    write(Constant.jiami("FE", ToHex.random(), msg));*/
+                    //配置APP的设置
+                    handler.postDelayed(runnable, 500);
+                } else {
+                    intent.setAction(EQUIPMENT_DISCONNECTED);
+                    context.sendBroadcast(intent);
+                }
+
+
                 break;
-            case 12:
+            case 0x12:
                 intent.setAction(ACTION_BLE_KEY_OPERATE_SUCCESSFULLY);
                 context.sendBroadcast(intent);
                 break;
-            case 13:
+            case 0x13:
                 break;
-            case 31:
-                ToHex.byteToHex(data[3]);//电量
-                ToHex.byteToHex(data[4]);//防盗开关
-                ToHex.byteToHex(data[5]);//锁车状态
-                ToHex.byteToHex(data[6]);//震动开关
-                ToHex.byteToHex(data[7]);//震动等级
-                ToHex.byteToHex(data[8]);//gps
+            case 0x31:
+                byteToHex(data[3]);//电量
+                byteToHex(data[4]);//防盗开关
+                byteToHex(data[5]);//锁车状态
+                byteToHex(data[6]);//震动开关
+                byteToHex(data[7]);//震动等级
+                byteToHex(data[8]);//gps
                 ToHex.bytesToHex(new byte[]{data[9], data[10]});//定位间隔
-                ToHex.byteToHex(data[11]);//定位间隔
-                ToHex.byteToHex(data[12]);//主版本号
-                ToHex.byteToHex(data[13]);//次版本号
-                ToHex.byteToHex(data[14]);//版本修改次数
+                byteToHex(data[11]);//定位间隔
+                byteToHex(data[12]);//主版本号
+                byteToHex(data[13]);//次版本号
+                byteToHex(data[14]);//版本修改次数
                 break;
-            case 21:
-                ToHex.byteToHex(data[3]);//开锁状态
+            case 0x21:
+                byteToHex(data[3]);//开锁状态
+                break;
+            case 0x36:
+                //设置电量
                 break;
             default:
                 break;
+        }
+    }
+
+    private void getService(BluetoothGatt gatt) {
+        for (BluetoothGattService bluetoothGattService : gatt.getServices()) {
+            Log.d("getService", bluetoothGattService.getUuid().toString());
+            for (BluetoothGattCharacteristic bluetoothGattCharacteristic : bluetoothGattService.getCharacteristics()) {
+                Log.d("Characteristic", bluetoothGattCharacteristic.getUuid().toString());
+            }
         }
     }
 }

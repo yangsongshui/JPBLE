@@ -135,7 +135,7 @@ public class DeviceManageActivity extends BaseActivity {
 
         final Button btnPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         btnPositive.setEnabled(false);*/
-        String key = "13010100";
+        String key =MyApplication.newInstance().KEY+ "13020100";
         linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
 
     }
@@ -171,7 +171,7 @@ public class DeviceManageActivity extends BaseActivity {
         builder.setPositiveButton(R.string.activity_dialog_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String key = "13010001";
+                String key =MyApplication.newInstance().KEY+ "13020001";
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
                 handler.postDelayed(myRunnable, 2000);
             }

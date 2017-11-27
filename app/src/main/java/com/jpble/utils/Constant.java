@@ -5,7 +5,6 @@ import android.util.Log;
 
 import java.util.UUID;
 
-import static android.content.ContentValues.TAG;
 import static com.jpble.ble.CRCUtil.returnCRC;
 import static com.jpble.utils.ToHex.hexStringToBytes;
 
@@ -39,16 +38,16 @@ public class Constant {
     /**
      * 协议服务的UUID
      */
-    public final static UUID UUID_SERVICE = UUID.fromString("0783b03e-8535-b5a0-7140-a304d2495cb7");
+    public final static UUID UUID_SERVICE = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
     /**
      * 控制功能, write 属性<br />
      */
-    public final static UUID UUID_CHARACTERISTIC_CONTROL = UUID.fromString("0783b03e-8535-b5a0-7140-a304d2495cba");
+    public final static UUID UUID_CHARACTERISTIC_CONTROL = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
 
     /**
      * 实时数据，notify属性<br />
      */
-    public final static UUID UUID_CHARACTERISTIC_NOTIFY_DATA = UUID.fromString("0783b03e-8535-b5a0-7140-a304d2495cb8");
+    public final static UUID UUID_CHARACTERISTIC_NOTIFY_DATA = UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");
 
     public static String getData(String msg) {
         byte[] data;
@@ -64,10 +63,10 @@ public class Constant {
         byte[] bytes = new byte[data.length];
         for (int i = 0; i < data.length; i++) {
             bytes[i] = (byte) (data[i] ^ (byte) num);
-            Log.e(TAG, bytes[i] + "");
+          //  Log.e(TAG, bytes[i] + "");
         }
         String msg2 = getData(tou + ToHex.byteToHex(num1) + ToHex.bytesToHex(bytes));
-        Log.e("jiami", ToHex.bytesToHex(bytes) + " " + ToHex.byteToHex(num1) + " " + msg2);
+        Log.e("jiami", msg + " " + ToHex.byteToHex(num1) + " " + msg2);
         return msg2;
     }
 

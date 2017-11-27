@@ -2,7 +2,6 @@ package com.jpble.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -12,6 +11,7 @@ import android.widget.LinearLayout;
 import com.jpble.R;
 import com.jpble.base.BaseActivity;
 import com.jpble.utils.Constant;
+import com.jpble.utils.ToHex;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
     protected void init() {
         initPermission();
         setHideAnimation(2000);
-        Log.e("getData", Constant.getData("FE6634253C4D7B60597F01044E"));
+        Constant.jiemi(ToHex.hexStringToBytes("FE05D3C2DBD4881EC6BF24"));
 
     }
 

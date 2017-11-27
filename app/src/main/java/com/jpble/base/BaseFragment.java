@@ -19,11 +19,12 @@ public abstract class BaseFragment extends Fragment {
         layout = inflater.inflate(getContentView(), null);
         // 注解Fragment
         unbinder= ButterKnife.bind(this, layout);
-        initData(layout,savedInstanceState);
+        initData(layout,inflater,container,savedInstanceState);
         return layout;
     }
 
-    protected abstract void initData(View layout, Bundle savedInstanceState);
+    protected abstract void initData(View layout, LayoutInflater inflater, ViewGroup container,
+                                     Bundle savedInstanceState);
 
     protected abstract int getContentView();
     @Override
