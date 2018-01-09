@@ -18,8 +18,6 @@ import com.jpble.app.MyApplication;
 import com.jpble.utils.Toastor;
 
 import java.util.Date;
-
-import static com.jpble.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
 import static com.jpble.utils.Constant.SUCCESSFUL_DEVICE_CONNECTION;
 
@@ -58,7 +56,6 @@ public class BLEService extends Service {
             @Override
             public void run() {
                 Log.i("BLEService", "心跳包");
-
                 handler.postDelayed(this, HEART_PERIOD);
             }
 
@@ -79,7 +76,6 @@ public class BLEService extends Service {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(SUCCESSFUL_DEVICE_CONNECTION);
         intentFilter.addAction(EQUIPMENT_DISCONNECTED);
-        intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         registerReceiver(notifyReceiver, intentFilter);
     }
 

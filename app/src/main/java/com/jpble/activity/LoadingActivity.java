@@ -1,14 +1,20 @@
 package com.jpble.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jpble.R;
 import com.jpble.base.BaseActivity;
 
@@ -20,11 +26,12 @@ import butterknife.BindView;
 /**
  * @author omni20170501
  */
-public class LoadingActivity extends BaseActivity implements View.OnClickListener {
+public class LoadingActivity extends BaseActivity {
 
     @BindView(R.id.pager)
     ViewPager pager;
-    int[] imageID = {R.drawable.boot_page_1, R.drawable.boot_page_2, R.drawable.boot_page_3, R.drawable.boot_page_4};
+    int[] imageID = {R.drawable.boot_page_1, R.drawable.boot_page_2, R.drawable.boot_page_3};
+    int currentItem = 0;
     private List<View> mView = new ArrayList<View>();
 
     @Override
@@ -32,12 +39,59 @@ public class LoadingActivity extends BaseActivity implements View.OnClickListene
         return R.layout.activity_loading;
     }
 
+
     @Override
     protected void init() {
-
         pager.setAdapter(adapter);
 
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                currentItem = position;//获取位置，即第几页
+                Log.i("Guide", "监听改变" + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        pager.setOnTouchListener(new View.OnTouchListener() {
+            float startX;
+            float startY;
+            float endX;
+            float endY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        startY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        endX = event.getX();
+                        endY = event.getY();
+                        WindowManager windowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+                        Point size = new Point();
+                        windowManager.getDefaultDisplay().getSize(size);
+                        int width = size.x;
+                        if (currentItem == (imageID.length - 1) && startX - endX >= (width / 4)) {
+                            startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+                            finish();//进入主页
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
     }
+
+
 
     //需要给ViewPager设置适配器
     PagerAdapter adapter = new PagerAdapter() {
@@ -69,20 +123,18 @@ public class LoadingActivity extends BaseActivity implements View.OnClickListene
             final View view = LayoutInflater.from(LoadingActivity.this).inflate(R.layout.load_item, container, false);
             ImageView imageView = (ImageView) view.findViewById(R.id.load_iv);
             TextView loadTv = (TextView) view.findViewById(R.id.load_skip);
-            TextView loadBt = (TextView) view.findViewById(R.id.load_bt);
+
             loadTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     pager.setCurrentItem(position + 1);
                 }
             });
-            loadBt.setOnClickListener(LoadingActivity.this);
-            imageView.setImageResource(imageID[position]);
-            if (position == 3) {
-                loadBt.setVisibility(View.VISIBLE);
+            Glide.with(LoadingActivity.this).load(imageID[position]).centerCrop().into(imageView);
+            // imageView.setImageResource(imageID[position]);
+            if (position == 2) {
                 loadTv.setVisibility(View.GONE);
             } else {
-                loadBt.setVisibility(View.GONE);
                 loadTv.setVisibility(View.VISIBLE);
             }
             mView.add(view);
@@ -91,13 +143,6 @@ public class LoadingActivity extends BaseActivity implements View.OnClickListene
         }
 
     };
-
-    @Override
-    public void onClick(View v) {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-
-    }
 
 
 }

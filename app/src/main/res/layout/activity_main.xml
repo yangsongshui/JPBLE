@@ -18,14 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray"
-        android:visibility="gone"
+
         android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
             android:src="@drawable/logo" />
 
         <RelativeLayout
@@ -36,18 +37,101 @@
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/mian_sign"
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/sign_mail"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/mian_mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="13sp"
+                        android:background="@null" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/black" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
-                    android:background="@drawable/load_bg"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/sign_psw"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/mian_psw"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="13sp"
+                        android:background="@null" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/black" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/mian_forgot"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/sign_forgot"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/mian_web"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/blue"
+                    android:text="@string/sign_web"
+                    android:autoLink="web"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/mian_sign"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/load_bg"
                     android:gravity="center"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
@@ -59,15 +143,14 @@
                     android:id="@+id/main_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="30dp"
                     android:background="@drawable/login"
                     android:gravity="center"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:text="@string/login"
-                    android:textColor="#55A3DE"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -82,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:text="Other"
                     android:textColor="@color/gray2" />
 
@@ -95,10 +178,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 

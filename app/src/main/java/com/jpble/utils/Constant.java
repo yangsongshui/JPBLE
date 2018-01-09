@@ -1,7 +1,12 @@
 package com.jpble.utils;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.util.UUID;
 
@@ -14,7 +19,7 @@ import static com.jpble.utils.ToHex.hexStringToBytes;
  */
 
 public class Constant {
-
+    public static final String BASE_URL = "http://omni0755.iok.la:10171/GpsSecurityApi/";
     //设备连接成功广播
     public static final String SUCCESSFUL_DEVICE_CONNECTION = "com.jpble.SUCCESSFUL_DEVICE_CONNECTION";
     //断开
@@ -25,14 +30,20 @@ public class Constant {
     //指令操作广播
     public static final String ACTION_BLE_KEY_OPERATE_SUCCESSFULLY = "com.jpble.ACTION_BLE_KEY_OPERATE_SUCCESSFULLY";
     public static final String ACTION_BLE_KEY_OPERATION_FAILURE = "com.jpble.ACTION_BLE_KEY_OPERATION_FAILURE";
+    //联网成功
+    public static final String ACTION_BLE_DEVICE_LINK_WEB = "com.jpble.ACTION_BLE_DEVICE_LINK_WEB";
+    public static final String ACTION_BLE_DEVICE_UNLINK_WEB = "com.jpble.ACTION_BLE_DEVICE_UNLINK_WEB";
+    //写入数据完成
+    public static final String ACTION_DATA = "com.jpble.ACTION_DATA";
 
-    public final static String EXTRA_STATUS = "com.pgt.pedelec.EXTRA_STATUS";
+
     public final static String TRACKING_INTERVAL = "TrackingInterval";//追踪时间
     public final static String GPS = "GPS";//gps
     public final static String VIBRATION_LEVEL = "VibrationLevel";//震动等级
     public final static String VIBRATION_SWITCH = "VibrationSwitch";//震动开关
     public final static String LOCK_STATUS = "LockStatus";//锁车状态
     public final static String SECURITY_SWITCH = "SecuritySwitch";//防盗开关
+    public final static String DEVICE_INFO = "DeviceInfo";//防盗开关
 
 
     /**
@@ -78,5 +89,37 @@ public class Constant {
         }
         Log.e("jiemi", ToHex.bytesToHex(data));
         return data;
+    }
+    /**
+     * 关闭软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext 上下文
+     */
+    public static void closeKeybord(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+    }
+
+    /**
+     * 判断当前软键盘是否打开
+     *
+     * @param activity
+     * @return
+     */
+    public static boolean isSoftInputShow(Activity activity) {
+
+        // 虚拟键盘隐藏 判断view是否为空
+        View view = activity.getWindow().peekDecorView();
+        if (view != null) {
+            // 隐藏虚拟键盘
+            InputMethodManager inputmanger = (InputMethodManager) activity
+                    .getSystemService(Activity.INPUT_METHOD_SERVICE);
+//       inputmanger.hideSoftInputFromWindow(view.getWindowToken(),0);
+
+            return inputmanger.isActive() && activity.getWindow().getCurrentFocus() != null;
+        }
+        return false;
     }
 }

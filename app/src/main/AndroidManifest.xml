@@ -31,12 +31,14 @@
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,19 +46,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SignActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.BluetoothDeviceActivity" />
         <activity android:name=".activity.TripActivity" />
         <activity android:name=".activity.EquipmentActivity" />
         <activity android:name=".activity.DeviceManageActivity" />
         <activity android:name=".activity.SimManageActivity" />
         <activity android:name=".activity.AboutActivity" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name=".activity.CodeActivity" />
+        <activity android:name=".activity.SucceedActivity" />
+        <activity android:name=".activity.AssetActivity" />
+        <activity android:name=".activity.AddActivity" />
+        <activity android:name=".activity.DeviceActivity" />
+        <activity android:name=".activity.MyAssetActivity" />
+
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo" /><!--设置通知图标-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/blue" /><!--设置通知颜色-->
     </application>
 
 </manifest>

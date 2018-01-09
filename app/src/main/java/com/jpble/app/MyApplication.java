@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 
+import com.jpble.bean.User;
 import com.jpble.ble.BLEService;
 import com.jpble.ble.LinkBLE;
+import com.jpble.utils.AppContextUtil;
 import com.jpble.utils.SpUtils;
 
 import java.util.ArrayList;
@@ -20,16 +22,18 @@ public class MyApplication extends Application {
 
     private static MyApplication instance;
     public static List<Activity> activitiesList = new ArrayList<Activity>(); // 活动管理集合
-    public String deviceKey="";
+    public String deviceKey = "";
     public String KEY;
-    public String updateKey="";
+    public String updateKey = "";
+    public String msg="";
+
     /**
      * 是否连接绑定了设备
      */
     public boolean isBind = false;
     public String bindMac;
     private LinkBLE linkBLE;
-
+    private User user;
 
     /**
      * 获取单例
@@ -50,6 +54,7 @@ public class MyApplication extends Application {
         Intent gattServiceIntent = new Intent(this, BLEService.class);
         //启动服务
         startService(gattServiceIntent);
+        AppContextUtil.init(this);
 
     }
 
@@ -96,5 +101,13 @@ public class MyApplication extends Application {
 
     private String getdata(int id) {
         return getResources().getString(id);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

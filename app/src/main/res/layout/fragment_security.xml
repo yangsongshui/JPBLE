@@ -2,143 +2,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#E5E6E7"
     android:orientation="vertical"
     tools:context="com.jpble.fragment.HomeFragment">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/blue" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.2"
-        android:background="@drawable/personal_center_background">
-
+        android:layout_height="wrap_content"
+        android:background="@color/blue">
 
         <ImageView
+            android:id="@+id/main_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/gengduo" />
 
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/switch_92" />
+            android:text="@string/security_title"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
-        <CheckBox
-            android:id="@+id/security_power_cb"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/security_schema"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:button="@null"
-            android:drawablePadding="10dp"
-            android:drawableTop="@drawable/security_check"
-            android:gravity="center"
-            android:text="@string/security_onoff"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:layout_marginStart="30dp"
+            android:src="@drawable/bluetooth_gps_gps" />
+
+        <TextView
+            android:id="@+id/security_dianliang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:text="100%"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/security_electricity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/security_dianliang"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/battery_40" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
         android:layout_weight="1"
-        android:background="#19a5a5a5"
+        android:gravity="center"
         android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/security_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/security_bt_check"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/security_message"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/security_search"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/search_blue"
+            android:gravity="center_horizontal"
+            android:paddingTop="4dp"
+            android:text="@string/security_search"
+            android:textColor="@color/white"
+            android:textSize="8sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/security_title"
-            android:textColor="@color/black" />
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/security_search"
+            android:text="@string/security_msg3"
+            android:textSize="12sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="#F2F2F2" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/security_news"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
-
-            <TextView
-                android:id="@+id/security_auto_cb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="@string/security_auto"
-                android:textColor="@color/security_rb" />
-
-            <ImageView
-                android:id="@+id/security_auto_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/check_mark"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="#F2F2F2" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/security_on_cb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="@string/security_on"
-                android:textColor="@color/security_rb" />
-
-            <ImageView
-                android:id="@+id/security_on_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/check_mark"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="#F2F2F2" />
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/security_off_cb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="@string/security_off"
-                android:textColor="@color/security_rb" />
-
-            <ImageView
-                android:id="@+id/security_off_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/check_mark"
-                android:visibility="gone" />
-        </RelativeLayout>
-    </LinearLayout>
-
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/log"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/security_log"
+            android:textColor="@color/blue" />
+    </RelativeLayout>
 </LinearLayout>

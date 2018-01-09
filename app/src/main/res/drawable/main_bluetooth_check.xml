@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:state_checked="true" android:drawable="@drawable/security_29"/>
-<item android:state_checked="false" android:drawable="@drawable/security"/>
+<item android:state_checked="true" android:drawable="@drawable/confirm_white"/>
+<item android:state_checked="false" android:drawable="@drawable/confirm_blue"/>
 </selector>

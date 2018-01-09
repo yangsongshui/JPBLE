@@ -3,7 +3,7 @@
     <rotate
         android:duration="10000"
         android:fromDegrees="0"
-        android:pivotX="0%"
+        android:pivotX="100%"
         android:pivotY="50%"
         android:repeatCount="-1"
         android:toDegrees="359" /> <!--设置不断旋转-->

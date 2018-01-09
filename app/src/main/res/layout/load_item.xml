@@ -8,7 +8,7 @@
         android:id="@+id/load_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/boot_page_4" />
+        />
 
     <TextView
         android:id="@+id/load_skip"
@@ -22,18 +22,4 @@
         android:textColor="@color/blue"
         android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/load_bt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/load_button"
-        android:layout_marginBottom="40dp"
-        android:paddingTop="8dp"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        android:paddingBottom="8dp"
-        android:background="@drawable/load_bg"
-        android:textColor="@color/white" />
 </RelativeLayout>

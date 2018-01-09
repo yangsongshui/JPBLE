@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "419721787504",
+    "firebase_url": "https://gpssecurity-183502.firebaseio.com",
+    "project_id": "gpssecurity-183502",
+    "storage_bucket": "gpssecurity-183502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419721787504:android:e83dc54b29a8ec6e",
+        "android_client_info": {
+          "package_name": "com.jpble"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419721787504-nel9eorkuvue4sc6lof5epv5ajp4mtbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jpble",
+            "certificate_hash": "0997e53d7ad240cc12d2a55c4c18c038f4ea0b0f"
+          }
+        },
+        {
+          "client_id": "419721787504-4ocmbvah9nrmmqm70hvqfj9gt4l3hen1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQrMqI7a1YxraqAirc-iv4EgtF6tc8c78"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419721787504-4ocmbvah9nrmmqm70hvqfj9gt4l3hen1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

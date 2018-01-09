@@ -6,6 +6,58 @@
     android:layout_height="match_parent"
     tools:context="com.jpble.activity.HomeActivity">
 
+
+
+    <RadioGroup
+        android:id="@+id/home_rgrpNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blue"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/home_security"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/main_bluetooth_check"
+            />
+
+        <RadioButton
+            android:id="@+id/home_trail"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/main_setting_check" />
+
+        <RadioButton
+            android:id="@+id/home_riding"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_home_check" />
+
+        <RadioButton
+            android:id="@+id/home_set"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/main_lock_check" />
+
+        <RadioButton
+            android:id="@+id/home_web"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/main_i_check" />
+    </RadioGroup>
     <FrameLayout
         android:id="@+id/home_frame"
         android:layout_width="match_parent"
@@ -17,48 +69,4 @@
         android:layout_height="1dp"
         android:layout_above="@+id/home_rgrpNavigation"
         android:background="#C8C8C8" />
-
-    <RadioGroup
-        android:id="@+id/home_rgrpNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/home_riding"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/main_home_check" />
-
-        <RadioButton
-            android:id="@+id/home_trail"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableBottom="@drawable/main_setting_check" />
-
-        <RadioButton
-            android:id="@+id/home_security"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableBottom="@drawable/main_bluetooth_check"
-
-            />
-
-        <RadioButton
-            android:id="@+id/home_set"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableBottom="@drawable/main_lock_check" />
-    </RadioGroup>
 </RelativeLayout>

@@ -44,8 +44,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 if (onItemCheckListener != null){
-
-
                     onItemCheckListener.OnItemCheck(holder, position, data.get(position));
                 }
             }
@@ -70,8 +68,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             device_name = (TextView) itemView.findViewById(R.id.device_name);
             device_mac = (TextView) itemView.findViewById(R.id.device_mac);
             device_item = (RelativeLayout) itemView.findViewById(R.id.device_item);
-
-
         }
     }
 

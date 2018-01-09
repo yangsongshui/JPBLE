@@ -1,13 +1,11 @@
 package com.jpble.activity;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.jpble.R;
 import com.jpble.base.BaseActivity;
 import com.jpble.widget.EditDialog;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.jpble.R.style.dialog;
@@ -25,12 +23,6 @@ public class SimManageActivity extends BaseActivity {
         editDialog = new EditDialog(this, dialog);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.sim_return, R.id.sim_set, R.id.sim_expiration})
     public void onViewClicked(View view) {

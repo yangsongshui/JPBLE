@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.jpble.R;
@@ -19,8 +19,6 @@ import com.jpble.utils.SpUtils;
 import com.jpble.utils.ToHex;
 import com.jpble.utils.Toastor;
 import com.jpble.widget.EditDialog;
-import com.jpble.widget.RadioDialog;
-import com.kyleduo.switchbutton.SwitchButton;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,22 +26,19 @@ import butterknife.OnClick;
 import static com.jpble.R.style.dialog;
 import static com.jpble.utils.Constant.ACTION_BLE_KEY_OPERATE_SUCCESSFULLY;
 import static com.jpble.utils.Constant.ACTION_BLE_KEY_OPERATION_FAILURE;
-import static com.jpble.utils.Constant.GPS;
 import static com.jpble.utils.Constant.TRACKING_INTERVAL;
 import static com.jpble.utils.Constant.VIBRATION_LEVEL;
 import static com.jpble.utils.ToHex.StringToHex3;
 
-public class EquipmentActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    @BindView(R.id.equipment_gps)
-    SwitchButton equipmentGps;
-    @BindView(R.id.equipment_intensity)
-    TextView equipmentIntensity;
+public class EquipmentActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.equipment_time)
     TextView equipmentTime;
-    RadioDialog radioDialog;
+    @BindView(R.id.equipment_seekbar)
+    SeekBar equipmentSeekbar;
+
     EditDialog editDialog;
     private ProgressDialog pd;
-    String gears = "";
+
     LinkBLE linkBLE;
     Toastor toastor;
 
@@ -59,24 +54,24 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
         pd = new ProgressDialog(this);
         pd.setMessage("操作中...");
         initView();
-        radioDialog = new RadioDialog(this, dialog);
+
         editDialog = new EditDialog(this, dialog);
         editDialog.setOnClickListener(this);
-        radioDialog.setOnClickListener(new View.OnClickListener() {
+   /*     radioDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (radioDialog.getCheck()) {
                     case R.id.radio_a:
                         gears = "01";
-                        equipmentIntensity.setText(getString(R.string.radio_a));
+
                         break;
                     case R.id.radio_b:
                         gears = "02";
-                        equipmentIntensity.setText(getString(R.string.radio_b));
+
                         break;
                     case R.id.radio_c:
                         gears = "03";
-                        equipmentIntensity.setText(getString(R.string.radio_c));
+
                         break;
                     default:
                         break;
@@ -87,26 +82,19 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
                 radioDialog.dismiss();
                 pd.show();
             }
-        });
-        equipmentGps.setOnCheckedChangeListener(this);
+        });*/
         initBroadcastReceiver();
     }
 
 
-    @OnClick({R.id.trip_return, R.id.trip_share, R.id.equipment_intensity_ll, R.id.equipment_time_ll})
+    @OnClick({R.id.trip_return, R.id.equipment_time_ll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.trip_return:
                 finish();
                 break;
-            case R.id.trip_share:
-                break;
             case R.id.equipment_time_ll:
                 editDialog.show();
-                break;
-            case R.id.equipment_intensity_ll:
-                radioDialog.show();
-                radioDialog.init(SpUtils.getString(VIBRATION_LEVEL, "01"));
                 break;
             default:
                 break;
@@ -128,29 +116,46 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-        String key = MyApplication.newInstance().KEY + "120700000000" + (b ? "01" : "02") + "0000";
-        linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
-        pd.show();
-        SpUtils.putBoolean(GPS, b);
-
-    }
-
     private void initView() {
-        equipmentGps.setCheckedNoEvent(SpUtils.getBoolean(GPS, true));
         String min = SpUtils.getInt(TRACKING_INTERVAL, 1) + "min";
         equipmentTime.setText(min);
+        equipmentSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                String key;
+                if (seekBar.getProgress() == 0) {
+                    key = MyApplication.newInstance().KEY + "120700000100" + "000000";
+                    linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
+                } else {
+                    String gears = "0" + seekBar.getProgress();
+                    SpUtils.putString(VIBRATION_LEVEL, gears);
+                    key = MyApplication.newInstance().KEY + "1207000000" + gears + "000000";
+                }
+                linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
+
+                pd.show();
+            }
+        });
+        equipmentSeekbar.setProgress(Integer.parseInt(SpUtils.getString(VIBRATION_LEVEL, "01")));
         switch (SpUtils.getString(VIBRATION_LEVEL, "01")) {
             case "01":
-                equipmentIntensity.setText(getString(R.string.radio_a));
+
                 break;
             case "02":
-                equipmentIntensity.setText(getString(R.string.radio_b));
+
                 break;
             case "03":
-                equipmentIntensity.setText(getString(R.string.radio_c));
+
                 break;
             default:
                 break;
@@ -166,10 +171,9 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
 
     }
 
-
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         unregisterReceiver(notifyReceiver);
     }
 

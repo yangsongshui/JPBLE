@@ -15,12 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/personal_center_background"></RelativeLayout>
+            android:background="@color/spindle2"/>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="#19a5a5a5">
 
         </LinearLayout>
@@ -30,68 +32,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
+
+        <LinearLayout
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="130dp"
-            android:background="@drawable/me_pic" />
-
-        <ImageView
-            android:id="@+id/me_pic_iv"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal"
             android:background="@drawable/me_pic"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/me_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/me_pic_iv"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:text="Jars"
-            android:textColor="@color/black" />
-
-        <LinearLayout
-            android:id="@+id/me_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/me_name_tv"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/me_address_tv"
+                android:id="@+id/me_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="shenzhen,china"
+                android:layout_marginTop="20dp"
+                android:text="Jars"
                 android:textColor="@color/black" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="2dp"
-                android:background="#B4B4B4" />
 
-            <TextView
-                android:id="@+id/me_email_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1234567890@163.com"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/me_email_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="1234567890@163.com"
+                    android:textColor="@color/black" />
+
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,17 +70,18 @@
             android:layout_alignBottom="@+id/view"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="15dp"
+
             android:layout_marginStart="15dp">
 
             <TextView
-                android:id="@+id/me_trip"
+                android:id="@+id/me_asset"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/my_trip"
+                android:drawableTop="@drawable/my_asset"
                 android:gravity="center"
-                android:text="@string/me_trip"
+                android:text="@string/me_asset"
                 android:textColor="@color/black" />
 
             <TextView
@@ -118,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/modify"
+                android:drawableTop="@drawable/edit"
                 android:gravity="center"
                 android:text="@string/me_modify"
                 android:textColor="@color/black" />
@@ -126,70 +98,104 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/view"
             android:layout_marginEnd="15dp"
+            android:paddingBottom="20dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:background="@color/white"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
             <TextView
                 android:id="@+id/me_equipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginStart="5dp"
+                android:gravity="center_vertical"
+                android:drawableEnd="@drawable/right2"
                 android:padding="12dp"
                 android:text="@string/me_equipment" />
-            <View
-                android:layout_width="match_parent"
-                android:background="#F5F5F5"
-                android:layout_height="1dp"/>
-            <TextView
-                android:id="@+id/me_about"
-                android:layout_width="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:text="@string/me_about" />
-            <View
-                android:layout_width="match_parent"
-                android:background="#F5F5F5"
-                android:layout_height="1dp"/>
-            <TextView
-                android:id="@+id/me_bluetooth"
-                android:layout_width="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:text="@string/me_bluetooth" />
-            <View
-                android:layout_width="match_parent"
-                android:background="#F5F5F5"
-                android:layout_height="1dp"/>
-            <TextView
-                android:id="@+id/me_sim"
-                android:layout_width="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:text="@string/me_sim" />
-            <View
-                android:layout_width="match_parent"
-                android:background="#F5F5F5"
-                android:layout_height="1dp"/>
+
+
             <TextView
                 android:id="@+id/me_device"
                 android:layout_width="match_parent"
-                android:layout_marginStart="5dp"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:drawableEnd="@drawable/right2"
+                android:layout_marginStart="5dp"
                 android:padding="12dp"
                 android:text="@string/me_device" />
-            <View
+
+            <TextView
+                android:id="@+id/me_out"
                 android:layout_width="match_parent"
-                android:background="#F5F5F5"
-                android:layout_height="1dp"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:padding="12dp"
+                android:gravity="center_vertical"
+                android:drawableEnd="@drawable/right2"
+                android:text="@string/me_out" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:gravity="center_vertical"
+                android:text="@string/me_contact" />
+            <TextView
+                android:id="@+id/mian_web"
+                android:layout_width="wrap_content"
+                android:textColor="@color/blue"
+
+                android:text="@string/me_web"
+                android:autoLink="web"
+                android:layout_marginStart="37dp"
+                android:textSize="12sp"
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/linearLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="30dp"
+                android:textColor="@color/black"
+                android:text="@string/me_about"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/about_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_msg"
+                    android:textSize="10sp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/about_msg2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="10sp"
+                    android:text="@string/about_msg2"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -74,10 +74,11 @@ public class CRCUtil {
      */
 	public static boolean CheckCRC(byte[] data){
 		byte[] t = new byte[data.length-2];
-		System.arraycopy(data,0,t,0,data.length-2);
+		System.arraycopy(data,2,t,0,data.length-2);
 		int crcInt = calcCRC(t);
 		int len = data.length;
-		int dataCrcInt = ((data[len-2] &0xFF) <<8)  | (data[len-1]&0xFF);
+		int dataCrcInt = ((data[0] &0xFF) <<8)  | (data[1]&0xFF);
+
 		if(dataCrcInt == crcInt ) return true;
 		return false;
 	}
@@ -92,15 +93,29 @@ public class CRCUtil {
 		System.arraycopy(data,2,t,0,data.length-2);
 		int crcInt = calcCRC(t);
 		Log.i("CRC", "CheckCRC2: crcInt"+crcInt);
-
-
 		int dataCrcInt = ((data[0] &0xFF) <<8)  | (data[1]&0xFF);
 		Log.i("CRC", "CheckCRC2: dataCrcInt="+dataCrcInt);
 		if(dataCrcInt == crcInt ) return true;
 		return false;
 	}
 
+	public static byte[] returnCRC2(byte[] data)
+	{
+		byte[] result = new byte[2];
+		int preval=0xffff;
+		int ucCRCHi =(preval & 0xff00)>>8;
+		int ucCRCLo = preval& 0x00FF;
+		int iIndex;
+		for(int i=0,len=data.length;i<len;i++){
+			iIndex = (ucCRCLo^data[i]) &0x00FF;
+			ucCRCLo = ucCRCHi^t_crc16_h[iIndex];
+			ucCRCHi = t_crc16_l[iIndex];
+		}
 
+		result[0]=(byte) (ucCRCHi&0xFF);
+		result[1]=(byte) (ucCRCLo&0xff);
+		return result;
+	}
 	public static byte[] returnCRC(byte[] data)
 	{
 		byte[] result = new byte[data.length+2];
@@ -148,6 +163,7 @@ public class CRCUtil {
 			ucCRCLo = ucCRCHi^t_crc16_h[iIndex];
 			ucCRCHi = t_crc16_l[iIndex];
 		}
+
 		return ((ucCRCHi&0x00FF)<<8)|(ucCRCLo&0x00FF) &0xFFFF;
 	}
 

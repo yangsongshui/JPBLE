@@ -106,6 +106,7 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
                 break;
             case R.id.trip_share:
                 if (!mScanning) {
+                    mBluetoothAdapter.enable();
                     devicesMap.clear();
                     adapter.clearDevice();
                     scanLeDevice(true);
@@ -167,7 +168,7 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
                     if (device.getName() != null && !device.getAddress().equals(myApp.bindMac)) {
                         final BLEDevice bleDevice = new BLEDevice(device, rssi);
                         //判断是否存在相同的设备
-                        if (("Track").equals(device.getName())) {
+                     if (("Track").equals(device.getName())) {
 
                             if (adapter != null && !devicesMap.containsKey(device.getAddress())) {
                                 adapter.setDevice(bleDevice);

@@ -10,20 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.2"
-        android:background="@drawable/personal_center_background">
+        android:background="@color/spindle2">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/motion_module"
             android:gravity="center_vertical|end">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/switch_92" />
 
             <ImageView
                 android:id="@+id/home_circle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:src="@drawable/riding_ball" />
         </RelativeLayout>
 
@@ -41,24 +46,26 @@
                 android:text="30"
                 android:textColor="@color/white"
                 android:textSize="60sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Km/h"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
+
             <ImageView
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/electricity"
-                android:layout_height="wrap_content" />
+                android:src="@drawable/electricity" />
         </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue2"
+        android:background="@color/spindle2"
         android:orientation="horizontal">
 
         <CheckBox
@@ -75,19 +82,17 @@
             android:textColor="@color/white"
             android:textSize="14sp" />
 
-        <CheckBox
-            android:id="@+id/home_lock"
+        <TextView
+            android:id="@+id/me_trip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@null"
             android:drawablePadding="5dp"
-            android:drawableTop="@drawable/home_lock_check"
+            android:drawableTint="@color/white"
+            android:drawableTop="@drawable/my_trip"
             android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/home_lock"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:text="@string/me_trip"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,7 +100,6 @@
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:layout_weight="1"
-        android:background="#19a5a5a5"
         android:orientation="vertical">
 
         <LinearLayout
@@ -103,16 +107,16 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="Max speed"
+                android:text="@string/me_max"
                 android:textColor="@color/black" />
 
             <TextView
@@ -123,27 +127,20 @@
                 android:text="30 km/h"
                 android:textColor="@color/black" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="#F2F2F2" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:padding="10dp"
             android:layout_marginStart="10dp"
-
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="Trip"
+                android:text="@string/me_trip2"
                 android:textColor="@color/black" />
 
             <TextView
@@ -155,27 +152,20 @@
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-
-            android:background="#F2F2F2" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="Riding time"
+                android:text="@string/me_riding"
                 android:textColor="@color/black" />
 
             <TextView
@@ -187,9 +177,29 @@
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="#F2F2F2" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="@string/me_calorie"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/home_cal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="0 Cal"
+                android:textColor="@color/black" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

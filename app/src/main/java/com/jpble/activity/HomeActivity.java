@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.jpble.R;
+import com.jpble.app.MyApplication;
 import com.jpble.base.BaseFragment;
+import com.jpble.ble.LinkBLE;
 import com.jpble.fragment.HomeFragment;
 import com.jpble.fragment.MapFragment;
 import com.jpble.fragment.MeFragment;
@@ -30,8 +32,9 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     private Fragment[] frags = new Fragment[4];
     protected BaseFragment currentFragment;
-    private HomeFragment homeFragment;
+    private SecurityFragment securityFragment;
     Toastor toastor;
+    LinkBLE linkBLE;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +52,11 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         initData();
-        mainRgrpNavigation.check(R.id.home_riding);
+        linkBLE= MyApplication.newInstance().getBleManager();
+        mainRgrpNavigation.check(R.id.home_security);
         mainRgrpNavigation.setOnCheckedChangeListener(this);
+
+
     }
 
     @Override
@@ -73,15 +79,15 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
     }
     private void initData() {
-        if (homeFragment == null) {
-            homeFragment = new HomeFragment();
+        if (securityFragment == null) {
+            securityFragment = new SecurityFragment();
         }
 
-        if (!homeFragment.isAdded()) {
+        if (!securityFragment.isAdded()) {
 
-            getSupportFragmentManager().beginTransaction().add(R.id.home_frame, homeFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.home_frame, securityFragment).commit();
 
-            currentFragment = homeFragment;
+            currentFragment = securityFragment;
         }
 
     }
@@ -97,11 +103,11 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     private Fragment getFrag(int index) {
         switch (index) {
             case 0:
-                return homeFragment;
+                return new HomeFragment();
             case 1:
                 return new MapFragment();
             case 2:
-                return new SecurityFragment();
+                return securityFragment;
             case 3:
                 return new MeFragment();
             default:
@@ -128,6 +134,11 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         currentFragment = (BaseFragment) fragment;
 
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        linkBLE.closeBle();
     }
 }

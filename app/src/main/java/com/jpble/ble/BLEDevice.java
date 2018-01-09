@@ -12,7 +12,6 @@ public class BLEDevice {
     private BluetoothDevice device;
     //信号
     private int rssi;
-
     public BLEDevice(BluetoothDevice device, int rssi) {
         this.device = device;
         this.rssi = rssi;
@@ -38,9 +37,7 @@ public class BLEDevice {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         BLEDevice bleDevice = (BLEDevice) o;
-
         return device != null ? device.equals(bleDevice.device) : bleDevice.device == null;
 
     }
