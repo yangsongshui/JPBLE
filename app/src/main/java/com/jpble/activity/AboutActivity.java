@@ -8,7 +8,7 @@ import com.jpble.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AboutActivity extends BaseActivity   {
+public class AboutActivity extends BaseActivity {
 
     @BindView(R.id.about_msg)
     TextView aboutMsg;
@@ -23,8 +23,7 @@ public class AboutActivity extends BaseActivity   {
 
     @Override
     protected void init() {
-        aboutMsg.setText(String.format(getString(R.string.about_msg), "1.2.2"));
-        aboutMsg2.setText(String.format(getString(R.string.about_msg2), "1.1.1"));
+
 
     }
 

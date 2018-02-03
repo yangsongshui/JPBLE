@@ -2,7 +2,7 @@ package com.jpble;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.jpble.bean.Device;
+import com.jpble.bean.Sim;
 
 
 /**
@@ -11,6 +11,6 @@ import com.jpble.bean.Device;
  */
 
 public interface OnItemListener {
-    void OnItemCheck(RecyclerView.ViewHolder viewHolder, int position, Device bleDevice);
+    void OnItemCheck(RecyclerView.ViewHolder viewHolder, int position, Sim.DataBean bleDevice);
 
 }

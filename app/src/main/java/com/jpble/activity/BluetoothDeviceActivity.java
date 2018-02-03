@@ -168,8 +168,7 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
                     if (device.getName() != null && !device.getAddress().equals(myApp.bindMac)) {
                         final BLEDevice bleDevice = new BLEDevice(device, rssi);
                         //判断是否存在相同的设备
-                     if (("Track").equals(device.getName())) {
-
+                        if (("Track").equals(device.getName())) {
                             if (adapter != null && !devicesMap.containsKey(device.getAddress())) {
                                 adapter.setDevice(bleDevice);
                                 devicesMap.put(device.getAddress(), bleDevice);
@@ -248,10 +247,16 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    boolean bl = false;
+
     @Override
     public void OnItemCheck(RecyclerView.ViewHolder viewHolder, int position, BLEDevice bleDevice) {
+        Log.i("Bluetooth", "onItemClick: mac=" + mac + " " + bleDevice.getDevice().getAddress());
+        if (!mac.equals(bleDevice.getDevice().getAddress())) {
+            linkBLE.closeBle();
+            bl = true;
+        }
         mac = bleDevice.getDevice().getAddress();
-        Log.i("Bluetooth", "onItemClick: mac=" + mac);
         dialog.show();
     }
 
@@ -262,10 +267,12 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
             pd.show();
             String key = "001104" + StringToHex2(msg);
             myApp.deviceKey = key;
+            myApp.psw = msg;
             if (linkBLE.isLink()) {
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
             } else {
                 linkBLE.LinkBluetooth(mac);
+                bl = false;
             }
         }
     }
@@ -279,8 +286,8 @@ public class BluetoothDeviceActivity extends BaseActivity implements OnItemCheck
                 toastor.showSingletonToast(getResources().getString(R.string.toastor_msg));
                 finish();
             } else if (EQUIPMENT_DISCONNECTED.equals(intent.getAction())) {
-
-                toastor.showSingletonToast(getResources().getString(R.string.toastor_msg2));
+                if (!bl)
+                    toastor.showSingletonToast(getResources().getString(R.string.toastor_msg2));
             }
             if (pd.isShowing()) {
                 pd.dismiss();

@@ -1,6 +1,7 @@
 package com.jpble.adapter;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,7 @@ public class TripAdapter extends BaseExpandableListAdapter {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
         Trip trip = (Trip) getGroup(groupPosition);
+        Log.e("info",trip.getDate());
         groupViewHolder.trip_time.setText(trip.getDate());
         return convertView;
     }
@@ -92,9 +94,11 @@ public class TripAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        Trip.TripInfo info = (Trip.TripInfo) getChild(groupPosition, childPosition);
-        childViewHolder.time_info.setText(info.getTime() + "`" + info.getMinute()+ "min");
-        childViewHolder.time_distance.setText(info.getKm() + "km");
+
+        Trip.TripInfo info = mList.get(groupPosition).getmList().get(childPosition);
+        Log.e("info",info.toString());
+        childViewHolder.time_info.setText(info.getTime() + "`" + info.getMinute()+ "");
+        childViewHolder.time_distance.setText(info.getKm());
         return convertView;
     }
 

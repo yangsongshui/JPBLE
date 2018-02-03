@@ -135,8 +135,7 @@ public class BLEService extends Service {
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(final BluetoothDevice device, final int rssi, byte[] scanRecord) {
-            if (device.getName() != null && (device.getName().toLowerCase().contains("Meter".toLowerCase())
-                    || device.getName().toLowerCase().equals("DIALOG-SPS".toLowerCase()))) {
+            if (device.getName() != null && (device.getName().toLowerCase().contains("Track".toLowerCase()))) {
                 Log.e("BLEService", device.getName());
                 if (device.getAddress().equals(MyApplication.newInstance().bindMac) && !mScanning) {
                     toastor.showSingletonToast("发现设备,重新连接中...");

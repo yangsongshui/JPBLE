@@ -2,6 +2,7 @@ package com.jpble.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ public class RegisterActivity extends BaseActivity implements CodeView {
     AutoLinkStyleTextView registerMsg;
     CodePresenterImp codePresenterImp;
     ProgressDialog progressDialog;
+    int type = 0;
 
     @Override
     protected int getContentView() {
@@ -46,16 +48,22 @@ public class RegisterActivity extends BaseActivity implements CodeView {
 
     @Override
     protected void init() {
+        type = getIntent().getIntExtra("type", 0);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.login_msg7));
         registerMsg.setOnClickCallBack(new AutoLinkStyleTextView.ClickCallBack() {
             @Override
             public void onClick(int position) {
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url;
                 if (position == 1) {
-
-                } else if (position == 2) {
-
+                    content_url = Uri.parse("http://geo.crops-sports.com/terms-of-service/");
+                } else {
+                    content_url = Uri.parse("http://geo.crops-sports.com/privacy-policy/");
                 }
+                intent.setData(content_url);
+                startActivity(intent);
             }
         });
         codePresenterImp = new CodePresenterImp(this, this);
@@ -69,7 +77,8 @@ public class RegisterActivity extends BaseActivity implements CodeView {
                 String psw = registerPsw.getText().toString().trim();
                 String psw2 = registerPsw2.getText().toString().trim();
                 String mail = registerMail.getText().toString().trim();
-                if (psw.equals(psw2)) {
+                if (psw.equals(psw2) && psw.length() >= 6) {
+
                     if (isEmail(mail)) {
                         codePresenterImp.register(AESUtil.aesEncrypt(mail, PHONE_KEY));
                     } else {
@@ -120,8 +129,8 @@ public class RegisterActivity extends BaseActivity implements CodeView {
     public void loadDataSuccess(Code tData) {
         Log.e("loadDataSuccess", tData.toString());
         if (tData.getCode() == 200 && tData.getData() == 1) {
-            startActivity(new Intent(this, CodeActivity.class).putExtra("psw", registerPsw.getText().toString()).putExtra("mail", registerMail.getText().toString()));
-           finish();
+            startActivity(new Intent(this, CodeActivity.class).putExtra("type", type).putExtra("psw", registerPsw.getText().toString()).putExtra("mail", registerMail.getText().toString()));
+            finish();
         } else {
             err(tData.getCode());
         }
@@ -132,5 +141,20 @@ public class RegisterActivity extends BaseActivity implements CodeView {
     public void loadDataError(Throwable throwable) {
         Log.e("loadDataError", throwable.getMessage());
         showToastor(getString(R.string.login_msg10));
+    }
+
+    public static boolean isLetterDigit(String str) {
+        boolean isDigit = false;//定义一个boolean值，用来表示是否包含数字
+        boolean isLetter = false;//定义一个boolean值，用来表示是否包含字母
+        for (int i = 0; i < str.length(); i++) {
+            if (Character.isDigit(str.charAt(i))) {   //用char包装类中的判断数字的方法判断每一个字符
+                isDigit = true;
+            } else if (Character.isLetter(str.charAt(i))) {  //用char包装类中的判断字母的方法判断每一个字符
+                isLetter = true;
+            }
+        }
+        String regex = "^[a-zA-Z0-9]+$";
+        boolean isRight = isDigit && isLetter && str.matches(regex);
+        return isRight;
     }
 }

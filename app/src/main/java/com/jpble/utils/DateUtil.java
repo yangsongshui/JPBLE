@@ -27,10 +27,10 @@ public class DateUtil {
     public static final String LONG_DATE_FORMAT2 = "yyyyMMdd";
 
     // 格式：月－日
-    public static final String SHORT_DATE_FORMAT = "MM-dd";
+    public static final String SHORT_DATE_FORMAT = "MM/dd";
 
     // 格式：小时：分钟：秒
-    public static final String LONG_TIME_FORMAT = "HH:mm:ss";
+    public static final String LONG_TIME_FORMAT = "HH:mm";
 
     //格式：年-月
     public static final String MONTG_DATE_FORMAT = "yyyy-MM";

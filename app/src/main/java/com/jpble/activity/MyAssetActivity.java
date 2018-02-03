@@ -7,7 +7,7 @@ import com.jpble.OnItemListener;
 import com.jpble.R;
 import com.jpble.adapter.AssetAdapter;
 import com.jpble.base.BaseActivity;
-import com.jpble.bean.Device;
+import com.jpble.bean.Sim;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,9 +30,9 @@ public class MyAssetActivity extends BaseActivity implements OnItemListener {
         adapter=new AssetAdapter(this);
         myAssetRv.setAdapter(adapter);
         adapter.setOnItemCheckListener(this);
-        adapter.setDevice(new Device("设备1",false,true));
-        adapter.setDevice(new Device("设备2",true,true));
-        adapter.setDevice(new Device("设备3",true,false));
+       // adapter.setDevice(new Device("设备1",false,true));
+        //adapter.setDevice(new Device("设备2",true,true));
+        //adapter.setDevice(new Device("设备3",true,false));
 
     }
 
@@ -41,8 +41,9 @@ public class MyAssetActivity extends BaseActivity implements OnItemListener {
         finish();
     }
 
+
     @Override
-    public void OnItemCheck(RecyclerView.ViewHolder viewHolder, int position, Device bleDevice) {
+    public void OnItemCheck(RecyclerView.ViewHolder viewHolder, int position, Sim.DataBean bleDevice) {
 
     }
 }

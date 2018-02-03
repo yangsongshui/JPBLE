@@ -5,7 +5,7 @@ import android.content.Context;
 import com.jpble.api.ServiceApi;
 import com.jpble.base.BaseModel;
 import com.jpble.base.IBaseRequestCallBack;
-import com.jpble.bean.Code;
+import com.jpble.bean.AddCode;
 
 import java.util.Map;
 
@@ -31,11 +31,11 @@ public class BindingModelImp extends BaseModel{
         mCompositeSubscription = new CompositeSubscription();
     }
 
-    public void loadCode(String url, Map<String,String> map , final IBaseRequestCallBack<Code> iBaseRequestCallBack) {
+    public void loadCode(String url, Map<String,String> map , final IBaseRequestCallBack<AddCode> iBaseRequestCallBack) {
         mCompositeSubscription.add(serviceApi.binding(url,map)
                 .observeOn(AndroidSchedulers.mainThread())//指定事件消费线程
                 .subscribeOn(Schedulers.io())   //指定 subscribe() 发生在 IO 线程
-                .subscribe(new Subscriber<Code>() {
+                .subscribe(new Subscriber<AddCode>() {
 
                     @Override
                     public void onStart() {
@@ -57,7 +57,7 @@ public class BindingModelImp extends BaseModel{
                     }
 
                     @Override
-                    public void onNext(Code msg) {
+                    public void onNext(AddCode msg) {
                         iBaseRequestCallBack.requestSuccess(msg);
 
                     }

@@ -1,6 +1,7 @@
 package com.jpble.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,13 +14,18 @@ import android.view.View;
 import com.jpble.R;
 import com.jpble.app.MyApplication;
 import com.jpble.base.BaseActivity;
+import com.jpble.bean.Code;
 import com.jpble.ble.LinkBLE;
+import com.jpble.presenter.DeletePresenterImp;
+import com.jpble.presenter.DeleteSimPresenterImp;
 import com.jpble.utils.Constant;
 import com.jpble.utils.ToHex;
 import com.jpble.utils.Toastor;
+import com.jpble.view.CodeView;
 
 import butterknife.OnClick;
 
+import static com.jpble.utils.Constant.BASE_URL;
 import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
 
 public class DeviceManageActivity extends BaseActivity {
@@ -28,11 +34,13 @@ public class DeviceManageActivity extends BaseActivity {
     //蓝牙服务类
 
 
-    private final int keyLength = 4;
     LinkBLE linkBLE;
     Toastor toastor;
     Handler handler = new Handler();
     Runnable myRunnable;
+    DeletePresenterImp deletePresenterImp;
+    DeleteSimPresenterImp deleteSimPresenterImp;
+    ProgressDialog progressDialog;
 
     @Override
     protected int getContentView() {
@@ -45,6 +53,8 @@ public class DeviceManageActivity extends BaseActivity {
         linkBLE = myApp.getBleManager();
         initBroadCast();
         toastor = new Toastor(this);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.login_msg7));
         myRunnable = new Runnable() {
             @Override
             public void run() {
@@ -53,6 +63,60 @@ public class DeviceManageActivity extends BaseActivity {
 
             }
         };
+
+        deletePresenterImp = new DeletePresenterImp(new CodeView() {
+
+            @Override
+            public void showProgress() {
+                progressDialog.show();
+            }
+
+            @Override
+            public void disimissProgress() {
+
+            }
+
+
+            @Override
+            public void loadDataSuccess(Code tData) {
+                if (tData.getCode() == 200)
+                    deleteSim();
+                else
+                    err(tData.getCode());
+            }
+
+            @Override
+            public void loadDataError(Throwable throwable) {
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
+                Log.e("loadDataError", throwable.getMessage());
+                showToastor(getString(R.string.login_msg10));
+            }
+        }, this);
+        deleteSimPresenterImp = new DeleteSimPresenterImp(new CodeView() {
+            @Override
+            public void showProgress() {
+
+            }
+
+            @Override
+            public void disimissProgress() {
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
+            }
+
+            @Override
+            public void loadDataSuccess(Code tData) {
+                if (tData.getCode() != 200)
+                    err(tData.getCode());
+                finish();
+            }
+
+            @Override
+            public void loadDataError(Throwable throwable) {
+                showToastor(getString(R.string.login_msg10));
+            }
+        }, this);
     }
 
 
@@ -108,38 +172,6 @@ public class DeviceManageActivity extends BaseActivity {
     }
 
 
-    private void inputConnectKey() {
-      /*  final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.activity_dialog_title_input_key);
-        LinearLayout llContent = (LinearLayout) getLayoutInflater().inflate(R.layout.view_dialog_input_key, null);
-
-
-
-        builder.setView(llContent);
-        builder.setPositiveButton(R.string.activity_dialog_connect, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-
-            }
-        });
-        builder.setNegativeButton(R.string.activity_dialog_cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-
-        final Button btnPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        btnPositive.setEnabled(false);*/
-        String key =MyApplication.newInstance().KEY+ "13020100";
-        linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
-
-    }
-
     /*初始化监听广播*/
     private void initBroadCast() {
         IntentFilter intentFilter = new IntentFilter();
@@ -171,8 +203,8 @@ public class DeviceManageActivity extends BaseActivity {
         builder.setPositiveButton(R.string.activity_dialog_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String key =MyApplication.newInstance().KEY+ "13020001";
-                linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
+                String msg = MyApplication.newInstance().KEY + "13020001";
+                linkBLE.write(Constant.jiami("FE", ToHex.random(), msg));
                 handler.postDelayed(myRunnable, 2000);
             }
         });
@@ -193,7 +225,9 @@ public class DeviceManageActivity extends BaseActivity {
         builder.setPositiveButton(R.string.activity_dialog_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                inputConnectKey();
+                String msg = MyApplication.newInstance().KEY + "13020100";
+                linkBLE.write(Constant.jiami("FE", ToHex.random(), msg));
+                delete();
             }
         });
         builder.setNegativeButton(R.string.activity_dialog_cancel, new DialogInterface.OnClickListener() {
@@ -224,20 +258,25 @@ public class DeviceManageActivity extends BaseActivity {
         unregisterReceiver(notifyReceiver);
     }
 
+    private void delete() {
+        String id = MyApplication.newInstance().id;
 
-    /*成功提示*/
-    private void showOKDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.activity_device_dialog_title_warming);
-        builder.setMessage(R.string.device_dialog_successful);
-        builder.setPositiveButton(R.string.activity_dialog_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                // linkBLE.closeBle();
-                MyApplication.newInstance().bindMac = null;
-            }
-        });
-        builder.create().show();
+        if (!id.isEmpty()) {
+            id = id.substring(0, id.length() - 1);
+            Log.e("id", id);
+            String token = MyApplication.newInstance().getUser().getData().getToken();
+            String url = BASE_URL + "user/lock/10003/" + id;
+            deletePresenterImp.register(url, id, token);
+        }
+
     }
+
+    private void deleteSim() {
+        String id = MyApplication.newInstance().carId;
+        Log.e("id", id);
+        String token = MyApplication.newInstance().getUser().getData().getToken();
+        String url = BASE_URL + "user/simcard/10005/" + id;
+        deleteSimPresenterImp.register(url, id, token);
+    }
+
 }

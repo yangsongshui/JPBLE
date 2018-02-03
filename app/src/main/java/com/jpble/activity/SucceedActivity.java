@@ -48,11 +48,14 @@ public class SucceedActivity extends BaseActivity implements View.OnClickListene
         progressDialog.setMessage(getString(R.string.login_msg7));
         loginPresenterImp = new LoginPresenterImp(this, this);
         String uuid = new DeviceUuidFactory(this).getDeviceUuid().toString();
+        String token = SpUtils.getString("googleToken", "");
         if (isEmail(phone) && !TextUtils.isEmpty(psw)) {
             Map<String, String> map = new HashMap<>();
             map.put("account", phone);
             map.put("password", MD5.getMD5(psw));
             map.put("deviceUUID", uuid);
+            map.put("deviceToken", token);
+            map.put("deviceType", "1");
             loginPresenterImp.loadLogin(map);
 
         }

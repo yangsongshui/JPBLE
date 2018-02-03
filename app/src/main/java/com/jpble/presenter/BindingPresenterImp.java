@@ -3,9 +3,9 @@ package com.jpble.presenter;
 import android.content.Context;
 
 import com.jpble.base.BasePresenterImp;
-import com.jpble.bean.Code;
+import com.jpble.bean.AddCode;
 import com.jpble.model.BindingModelImp;
-import com.jpble.view.CodeView;
+import com.jpble.view.AddCodeView;
 
 import java.util.Map;
 
@@ -13,7 +13,7 @@ import java.util.Map;
  * 作者：omni20170501
  */
 
-public class BindingPresenterImp extends BasePresenterImp<CodeView,Code> {
+public class BindingPresenterImp extends BasePresenterImp<AddCodeView,AddCode> {
 
 
     private Context context = null;
@@ -25,7 +25,7 @@ public class BindingPresenterImp extends BasePresenterImp<CodeView,Code> {
      * @author ys
      * @date 2017/6/13 15:12
      */
-    public BindingPresenterImp(CodeView view, Context context) {
+    public BindingPresenterImp(AddCodeView view, Context context) {
         super(view);
         this.context=context;
         bindingModelImp=new BindingModelImp(context);

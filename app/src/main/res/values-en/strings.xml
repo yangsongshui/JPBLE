@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JPBLE</string>
+    <string name="app_name">GPS Security</string>
     <string name="load_skip">SKIP</string>
     <string name="back">Back</string>
     <string name="next">Next</string>
@@ -27,8 +27,11 @@
     <string name="home_end">Stop</string>
     <string name="home_lock">Lock</string>
     <string name="me_riding">Riding time</string>
-    <string name="me_calorie">Calorie</string>
+    <string name="me_calorie">Map</string>
     <string name="me_trip2">Trip</string>
+    <string name="info_device">SIM information</string>
+    <string name="info_device2">My GEO information</string>
+    <string name="info_device3">Paired device :</string>
     <string name="me_max">Max speed</string>
     <string name="home_unlock">Unlock</string>
     <string name="security_msg">We suggest to turn OFF the GPS service\nwhen you are not searching.\nIt may save the battery power of product.</string>
@@ -54,7 +57,7 @@
     <string name="trip_riding">Riding</string>
     <string name="trip_total">Total ride</string>
     <string name="equipment_time">Track interval time</string>
-    <string name="equipment_time2">%s sec</string>
+    <string name="equipment_time2">%s min</string>
     <string name="equipment_intensity">Vibration intensity</string>
     <string name="equipment_gps">GPS</string>
     <string name="equipment_off">OFF</string>
@@ -65,6 +68,9 @@
     <string name="equipment_msg2">To able to set “My GEO” vibration intensity.\n\n &lt;Vibration intensity&gt; Please select the level for High, Mid, Low, or OFF.\n\n* The product may have different criterion cause of GPS environment or\nantenna position.</string>
     <string name="ble_paired">Paired device</string>
     <string name="ble_disconnect">disconnect</string>
+    <string name="ble_disconnect2">The device is not nearby and cannot connect to bluetooth.</string>
+    <string name="ble_disconnect3">Unselected device.</string>
+    <string name="name">Modify nickname</string>
     <string name="ble_connected">connected</string>
     <string name="ble_search">Search Bluetooth device</string>
     <string name="ble_search2">Search</string>
@@ -90,6 +96,8 @@
     <string name="sim_expiration">SIM card password  settings</string>
     <string name="toastor_msg">Communication access to success</string>
     <string name="toastor_msg2">Communication access failure</string>
+    <string name="toastor_msg3">You can’t start cycling in the tracking device.</string>
+    <string name="toastor_msg4">The equipment was not traceable during the ride.</string>
     <string name="radio_a">1 Gears</string>
     <string name="radio_b">2 Gears</string>
     <string name="radio_c">3 Gears</string>
@@ -108,13 +116,16 @@
     <string name="device_msg3">User ID</string>
     <string name="device_msg4">Password</string>
     <string name="device_msg5">Networking Type</string>
+    <string name="device_msg6">Authentication Type:</string>
     <string name="device_rb">APN</string>
-    <string name="device_rb2">USER</string>
+    <string name="device_rb2">ALL</string>
     <string name="device_rb3">CHAP</string>
     <string name="device_done">Done</string>
     <string name="device_done6">Failed device networking</string>
     <string name="device_done7">Device networking success</string>
-
+    <string name="device_done8">"Data acquisition…"</string>
+    <string name="device_done9">"Device connection…"</string>
+    <string name="log_msg">The device is warned of movement.</string>
     <string name="login_msg6">In the login…</string>
     <string name="login_msg7">In the submission…</string>
     <string name="login_msg8">Wrong input</string>
@@ -134,6 +145,10 @@
     <string name="login_msg21">Request error</string>
     <string name="login_msg22">Login successful</string>
     <string name="login_msg24">Exit the login</string>
+    <string name="register_tos2">Email error</string>
+    <string name="register_tos">Incorrect password</string>
+    <string name="device_done10">"Test network…"</string>
+    <string name="code_msg1">Code error</string>
     <!--device manage-->
     <string name="activity_btn_close">Shut down</string>
     <string name="activity_close_device">Shut down</string>
@@ -144,9 +159,9 @@
     <string name="activity_cancel_matching_info">After cancel the device pairing, you may change to other user’s device.</string>
     <string name="activity_btn_cancel_pairing">Cancel Pairing</string>
 
-    <string name="activity_cancel_matching_close">All reset</string>
-    <string name="activity_cancel_matching_close_info">After push "All reset", the products (My GEO) data on app will be all invalid.</string>
-    <string name="activity_btn_cancel_pairing_close">All reset</string>
+    <string name="activity_cancel_matching_close">Flight mode</string>
+    <string name="activity_cancel_matching_close_info">Suspends radio-frequency signal transmission by the device, thereby disabling Bluetooth, and GPS services.</string>
+    <string name="activity_btn_cancel_pairing_close">Flight mode</string>
 
     <string name="activity_device_dialog_title_warming">Warm Tips</string>
     <string name="device_dialog_successful">successful</string>
@@ -158,4 +173,6 @@
     <string name="activity_dialog_ok">ok</string>
     <string name="activity_dialog_title_input_key">input connect key</string>
     <string name="title_activity_maps">Map</string>
+    <string name="toastor_msg5">Equipment not connected.</string>
+    <string name="title_activity_map">Map</string>
 </resources>

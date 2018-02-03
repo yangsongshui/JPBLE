@@ -7,58 +7,90 @@ import java.io.Serializable;
  */
 
 public class DeviceState implements Serializable {
-    String on;
-    String off;
-    String key;
-    String led;
-    String lockset;
-    String voltage;
+    int dianchi;
+    String kaiguan;
+    String zhuangtai;
+    String zhendong;
+    String dengji;
+    String time;
+    String banben;
+    String banben2;
 
-    public String getOn() {
-        return on;
+    public int getDianchi() {
+        return dianchi;
     }
 
-    public void setOn(String on) {
-        this.on = on;
+    public void setDianchi(int dianchi) {
+        this.dianchi = dianchi;
     }
 
-    public String getOff() {
-        return off;
+    public String getKaiguan() {
+        return kaiguan;
     }
 
-    public void setOff(String off) {
-        this.off = off;
+    public void setKaiguan(String kaiguan) {
+        this.kaiguan = kaiguan;
     }
 
-    public String getKey() {
-        return key;
+    public String getZhuangtai() {
+        return zhuangtai;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setZhuangtai(String zhuangtai) {
+        this.zhuangtai = zhuangtai;
     }
 
-    public String getLed() {
-        return led;
+    public String getZhendong() {
+        return zhendong;
     }
 
-    public void setLed(String led) {
-        this.led = led;
+    public void setZhendong(String zhendong) {
+        this.zhendong = zhendong;
     }
 
-    public String getLockset() {
-        return lockset;
+    public String getDengji() {
+        return dengji;
     }
 
-    public void setLockset(String lockset) {
-        this.lockset = lockset;
+    public void setDengji(String dengji) {
+        this.dengji = dengji;
     }
 
-    public String getVoltage() {
-        return voltage;
+    public String getTime() {
+        return time;
     }
 
-    public void setVoltage(String voltage) {
-        this.voltage = voltage;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getBanben() {
+        return banben;
+    }
+
+    public void setBanben(String banben) {
+        this.banben = banben;
+    }
+
+    public String getBanben2() {
+        return banben2;
+    }
+
+    public void setBanben2(String banben2) {
+        this.banben2 = banben2;
+    }
+
+    @Override
+    public String toString() {
+        return "DeviceState{" +
+                "dianchi=" + dianchi +
+                ", kaiguan='" + kaiguan + '\'' +
+                ", zhuangtai='" + zhuangtai + '\'' +
+                ", zhendong='" + zhendong + '\'' +
+                ", dengji='" + dengji + '\'' +
+                ", time='" + time + '\'' +
+                ", banben='" + banben + '\'' +
+                ", banben2='" + banben2 + '\'' +
+                '}';
     }
 }

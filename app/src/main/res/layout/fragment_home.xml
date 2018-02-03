@@ -41,9 +41,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/home_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30"
+                android:text="0"
                 android:textColor="@color/white"
                 android:textSize="60sp" />
 
@@ -54,11 +55,7 @@
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/electricity" />
+
         </LinearLayout>
     </RelativeLayout>
 
@@ -124,8 +121,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="30 km/h"
+                android:text="0"
                 android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:text="km/h" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,8 +152,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="0 km"
+                android:text="0"
                 android:textColor="@color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:text="km" />
         </LinearLayout>
 
         <LinearLayout
@@ -168,38 +178,28 @@
                 android:text="@string/me_riding"
                 android:textColor="@color/black" />
 
-            <TextView
+
+            <Chronometer
                 android:id="@+id/home_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="00:00"
-                android:textColor="@color/black" />
+                android:layout_marginTop="5dp"
+                android:format="00:00"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:padding="10dp"
-            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/home_map"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="15dp"
+                android:padding="10dp"
                 android:text="@string/me_calorie"
                 android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/home_cal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="0 Cal"
-                android:textColor="@color/black" />
-        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

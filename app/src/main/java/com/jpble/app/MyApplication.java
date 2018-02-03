@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.jpble.bean.User;
 import com.jpble.ble.BLEService;
 import com.jpble.ble.LinkBLE;
@@ -26,7 +27,11 @@ public class MyApplication extends Application {
     public String KEY;
     public String updateKey = "";
     public String msg="";
-
+    public String id="";
+    public String carId="";
+    public String name="";
+    public String wri="";
+    public String psw="";
     /**
      * 是否连接绑定了设备
      */
@@ -34,7 +39,11 @@ public class MyApplication extends Application {
     public String bindMac;
     private LinkBLE linkBLE;
     private User user;
-
+    public List<LatLng> latLng=new ArrayList<>();
+    public LatLng startLng;
+    public LatLng endLng;
+    public boolean scearch=true;
+    public boolean cycling=true;
     /**
      * 获取单例
      *

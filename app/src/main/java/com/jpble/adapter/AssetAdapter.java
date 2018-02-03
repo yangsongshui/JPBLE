@@ -11,10 +11,13 @@ import android.widget.TextView;
 
 import com.jpble.OnItemListener;
 import com.jpble.R;
-import com.jpble.bean.Device;
+import com.jpble.app.MyApplication;
+import com.jpble.bean.Sim;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -22,7 +25,7 @@ import java.util.List;
  */
 
 public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.ViewHolder> {
-    private List<Device> data;
+    private List<Sim.DataBean> data;
     private Context context;
     private OnItemListener onItemCheckListener;
 
@@ -40,7 +43,7 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Device bleDevice = data.get(position);
+        Sim.DataBean bleDevice = data.get(position);
         holder.listRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,10 +53,12 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.ViewHolder> 
             }
         });
 
-        holder.deviceName.setText(bleDevice.getName());
-        holder.deviceName.setTextColor(context.getResources().getColor(bleDevice.isBle()?R.color.blue:R.color.zircon));
-        holder.listBle.setImageResource(bleDevice.isBle()?R.drawable.ble:R.drawable.ble_false);
-        holder.listSatellite.setImageResource(bleDevice.isBle()?R.drawable.satellite:R.drawable.satellite_false);
+        holder.deviceName.setText(bleDevice.getLockVo().getName());
+        if (MyApplication.newInstance().bindMac != null && MyApplication.newInstance().bindMac.equals(bleDevice.getLockVo().getMac())) {
+            holder.listBle.setImageResource(R.drawable.ble);
+        } else
+            holder.listBle.setImageResource(R.drawable.ble_false);
+        holder.listSatellite.setImageResource(getIconId(map.get(bleDevice.getLockVo().getMac())));
 
     }
 
@@ -64,7 +69,7 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView deviceName;
-        private ImageView listSatellite,listBle;
+        private ImageView listSatellite, listBle;
         private RelativeLayout listRl;
 
         public ViewHolder(View itemView) {
@@ -76,8 +81,9 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.ViewHolder> 
         }
     }
 
-    public void setItems(List<Device> data) {
+    public void setItems(List<Sim.DataBean> data) {
         this.data = data;
+        initMap(this.data);
         this.notifyDataSetChanged();
     }
 
@@ -86,7 +92,7 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void setDevice(Device device) {
+    public void setDevice(Sim.DataBean device) {
         data.add(data.size(), device);
         notifyItemInserted(data.size());
     }
@@ -102,5 +108,39 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.ViewHolder> 
         this.onItemCheckListener = onItemCheckListener;
     }
 
+    Map<String, Integer> map = new HashMap<>();
 
+    private void initMap(List<Sim.DataBean> data) {
+        for (int i = 0; i < data.size(); i++) {
+            map.put(data.get(i).getLockVo().getMac(), -200);
+        }
+    }
+    public void initRssi(){
+        for (int i = 0; i < data.size(); i++) {
+            map.put(data.get(i).getLockVo().getMac(), -200);
+        }
+    }
+    public void setMap(String mac, int rssi) {
+        map.put(mac, rssi);
+        notifyDataSetChanged();
+    }
+
+    public int getMap(String mac) {
+        return map.get(mac);
+
+    }
+
+    private int getIconId(int rssi) {
+        int rssiPercent = (int) (100.0f * (127.0f + rssi) / (127.0f + 20.0f));
+        if (rssiPercent < 10) {
+            return R.drawable.signal4;
+        } else if (rssiPercent >= 10 && rssiPercent < 20) {
+            return R.drawable.signal3;
+        } else if (rssiPercent >= 20 && rssiPercent < 30) {
+            return R.drawable.signal2;
+        } else if (rssiPercent >= 30) {
+            return R.drawable.signal1;
+        }
+        return R.drawable.signal4;
+    }
 }

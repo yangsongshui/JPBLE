@@ -1,72 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_main"
     tools:context="com.jpble.activity.HomeActivity">
 
 
-
-    <RadioGroup
-        android:id="@+id/home_rgrpNavigation"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/blue"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/home_security"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/home_rl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableBottom="@drawable/main_bluetooth_check"
-            />
+            android:layout_below="@+id/view"
+            android:background="@color/blue">
 
-        <RadioButton
-            android:id="@+id/home_trail"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableBottom="@drawable/main_setting_check" />
+            <ImageView
+                android:id="@+id/home_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/gengduo" />
 
-        <RadioButton
-            android:id="@+id/home_riding"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
+            <TextView
+                android:id="@+id/title_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/security_title2"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+        <RadioGroup
+            android:id="@+id/home_rgrpNavigation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/main_home_check" />
+            android:layout_alignParentBottom="true"
+            android:background="@color/blue"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/home_set"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableBottom="@drawable/main_lock_check" />
+            <RadioButton
+                android:id="@+id/home_security"
+                style="@style/MainRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/main_bluetooth_check" />
 
-        <RadioButton
-            android:id="@+id/home_web"
-            style="@style/MainRadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableBottom="@drawable/main_i_check" />
-    </RadioGroup>
-    <FrameLayout
-        android:id="@+id/home_frame"
-        android:layout_width="match_parent"
+            <RadioButton
+                android:id="@+id/home_trail"
+                style="@style/MainRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/main_setting_check" />
+
+            <RadioButton
+                android:id="@+id/home_riding"
+                style="@style/MainRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/main_home_check" />
+
+            <RadioButton
+                android:id="@+id/home_set"
+                style="@style/MainRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/main_lock_check" />
+
+            <RadioButton
+                android:id="@+id/home_web"
+                style="@style/MainRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/main_i_check" />
+        </RadioGroup>
+
+        <FrameLayout
+            android:id="@+id/home_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/home_rgrpNavigation"
+            android:layout_below="@+id/home_rl" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/home_rgrpNavigation"
+            android:background="#C8C8C8" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/left_menu_ll"
+        android:layout_width="250dp"
         android:layout_height="match_parent"
-        android:layout_above="@+id/home_rgrpNavigation" />
+        android:layout_gravity="start"
+        android:background="@color/colorPrimary"
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/home_rgrpNavigation"
-        android:background="#C8C8C8" />
-</RelativeLayout>
+        android:orientation="vertical">
+
+        <include layout="@layout/left_menu_layout" />
+
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

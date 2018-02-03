@@ -6,19 +6,13 @@
     android:orientation="vertical"
     tools:context="com.jpble.activity.MainActivity">
 
-    <ImageView
-        android:id="@+id/main_logo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/startup_page"
-         />
+
 
     <LinearLayout
         android:id="@+id/main_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray"
-
         android:orientation="vertical">
 
         <ImageView
@@ -92,6 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="13sp"
+                        android:inputType="textPassword"
                         android:background="@null" />
                 </LinearLayout>
 

@@ -38,14 +38,15 @@ public class Trip {
         String time;
         String km;
         String minute;
-
+        String orbit;
         public TripInfo() {
         }
 
-        public TripInfo(String time, String km, String minute) {
+        public TripInfo(String time, String km, String minute,String orbit) {
             this.time = time;
             this.km = km;
             this.minute = minute;
+            this.orbit = orbit;
         }
 
         public String getTime() {
@@ -70,6 +71,24 @@ public class Trip {
 
         public void setMinute(String minute) {
             this.minute = minute;
+        }
+
+        public String getOrbit() {
+            return orbit;
+        }
+
+        public void setOrbit(String orbit) {
+            this.orbit = orbit;
+        }
+
+        @Override
+        public String toString() {
+            return "TripInfo{" +
+                    "time='" + time + '\'' +
+                    ", km='" + km + '\'' +
+                    ", minute='" + minute + '\'' +
+                    ", orbit='" + orbit + '\'' +
+                    '}';
         }
     }
 }

@@ -6,33 +6,6 @@
     android:orientation="vertical"
     tools:context="com.jpble.fragment.HomeFragment">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:background="@color/blue" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue">
-
-        <ImageView
-            android:id="@+id/main_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@drawable/gengduo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/security_title"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -43,7 +16,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:src="@drawable/bluetooth_gps_gps" />
+            android:src="@drawable/bluetooth_gps_none" />
+
+        <TextView
+            android:id="@+id/security_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/security_schema"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/blue" />
 
         <TextView
             android:id="@+id/security_dianliang"
@@ -54,7 +37,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp"
             android:text="100%"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/security_electricity"
@@ -63,7 +47,8 @@
             android:layout_above="@+id/security_dianliang"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/battery_40" />
+            android:src="@drawable/battery_40"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -89,26 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp">
 
-        <TextView
-            android:id="@+id/security_search"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/search_blue"
-            android:gravity="center_horizontal"
-            android:paddingTop="4dp"
-            android:text="@string/security_search"
-            android:textColor="@color/white"
-            android:textSize="8sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/security_search"
-            android:text="@string/security_msg3"
-            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/security_news"
@@ -118,8 +83,8 @@
             android:layout_marginEnd="15dp"
             android:background="@drawable/log"
             android:gravity="center"
-            android:textSize="12sp"
             android:text="@string/security_log"
-            android:textColor="@color/blue" />
+            android:textColor="@color/blue"
+            android:textSize="12sp" />
     </RelativeLayout>
 </LinearLayout>

@@ -139,21 +139,14 @@
                 android:text="@string/me_out" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/me_contact"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
+                android:layout_marginStart="5dp"
+                android:padding="12dp"
                 android:gravity="center_vertical"
+                android:drawableEnd="@drawable/right2"
                 android:text="@string/me_contact" />
-            <TextView
-                android:id="@+id/mian_web"
-                android:layout_width="wrap_content"
-                android:textColor="@color/blue"
-
-                android:text="@string/me_web"
-                android:autoLink="web"
-                android:layout_marginStart="37dp"
-                android:textSize="12sp"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <RelativeLayout

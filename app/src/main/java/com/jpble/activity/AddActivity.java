@@ -36,6 +36,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.jpble.utils.Constant.ACTION_BLE_KEY_OPERATION_FAILURE;
 import static com.jpble.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
 import static com.jpble.utils.Constant.SUCCESSFUL_DEVICE_CONNECTION;
@@ -90,6 +91,7 @@ public class AddActivity extends BaseActivity implements OnItemCheckListener, Vi
         dialog.setOnClickListener(this);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(SUCCESSFUL_DEVICE_CONNECTION);
+        intentFilter.addAction(ACTION_BLE_KEY_OPERATION_FAILURE);
         intentFilter.addAction(EQUIPMENT_DISCONNECTED);
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         registerReceiver(notifyReceiver, intentFilter);
@@ -109,22 +111,24 @@ public class AddActivity extends BaseActivity implements OnItemCheckListener, Vi
                 public void run() {
                     mScanning = false;
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
+                    addBle.setText(String.format(getString(R.string.add_msg4), "OFF"));
                 }
             }, SCAN_PERIOD);
             //搜索置顶服务BLE设备
             mScanning = true;
             mBluetoothAdapter.startLeScan(mLeScanCallback);
-
+            addBle.setText(String.format(getString(R.string.add_msg4), "ON"));
         } else {
             mScanning = false;
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
+            addBle.setText(String.format(getString(R.string.add_msg4), "OFF"));
         }
         invalidateOptionsMenu();
     }
 
     private void initView() {
         pd = new ProgressDialog(this);
-        pd.setMessage("设备连接中");
+        pd.setMessage(getString(R.string.device_done9));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         addRv.setLayoutManager(layoutManager);
@@ -140,6 +144,7 @@ public class AddActivity extends BaseActivity implements OnItemCheckListener, Vi
         mac = bleDevice.getDevice().getAddress();
         Log.i("Bluetooth", "onItemClick: mac=" + mac);
         dialog.show();
+        scanLeDevice(false);
     }
 
     @Override
@@ -150,6 +155,7 @@ public class AddActivity extends BaseActivity implements OnItemCheckListener, Vi
             pd.show();
             String key = "001104" + StringToHex2(msg);
             myApp.deviceKey = key;
+            myApp.psw = msg;
             if (linkBLE.isLink()) {
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
             } else {
@@ -203,7 +209,6 @@ public class AddActivity extends BaseActivity implements OnItemCheckListener, Vi
     @Override
     protected void onStop() {
         super.onStop();
-
         addNameEt.clearFocus();
         addNameEt.setFocusable(false);
         if (isSoftInputShow(this)) {
@@ -220,7 +225,7 @@ public class AddActivity extends BaseActivity implements OnItemCheckListener, Vi
     private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("BluetoothActivity", intent.getAction());
+            Log.i("AddActivity", intent.getAction());
             //设备
             if (SUCCESSFUL_DEVICE_CONNECTION.equals(intent.getAction())) {
                 toastor.showSingletonToast(getResources().getString(R.string.toastor_msg));
@@ -233,6 +238,8 @@ public class AddActivity extends BaseActivity implements OnItemCheckListener, Vi
                 startActivity(new Intent(AddActivity.this, DeviceActivity.class).putExtra("name", name));
                 finish();
             } else if (EQUIPMENT_DISCONNECTED.equals(intent.getAction())) {
+                toastor.showSingletonToast(getResources().getString(R.string.toastor_msg2));
+            }else if (ACTION_BLE_KEY_OPERATION_FAILURE.equals(intent.getAction())){
                 toastor.showSingletonToast(getResources().getString(R.string.toastor_msg2));
             }
             if (pd.isShowing()) {

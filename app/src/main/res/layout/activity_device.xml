@@ -41,9 +41,10 @@
         android:background="@color/mantis" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:text="@string/device_msg2"
         android:textColor="@color/black" />
@@ -61,7 +62,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/device_msg3"
         android:textColor="@color/black" />
@@ -79,7 +80,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/device_msg4"
         android:textColor="@color/black" />
@@ -153,12 +154,12 @@
             android:id="@+id/device_test"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:visibility="gone"
             android:src="@drawable/test" />
 
         <ImageView
             android:id="@+id/device_done2"
             android:layout_width="40dp"
-            android:visibility="gone"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/done" />

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.jpble.app.MyApplication;
+
 import java.util.UUID;
 
 import static com.jpble.ble.CRCUtil.returnCRC;
@@ -19,7 +21,7 @@ import static com.jpble.utils.ToHex.hexStringToBytes;
  */
 
 public class Constant {
-    public static final String BASE_URL = "http://omni0755.iok.la:10171/GpsSecurityApi/";
+    public static final String BASE_URL = "http://34.252.179.148:8088/GpsSecurityApi/";
     //设备连接成功广播
     public static final String SUCCESSFUL_DEVICE_CONNECTION = "com.jpble.SUCCESSFUL_DEVICE_CONNECTION";
     //断开
@@ -35,30 +37,32 @@ public class Constant {
     public static final String ACTION_BLE_DEVICE_UNLINK_WEB = "com.jpble.ACTION_BLE_DEVICE_UNLINK_WEB";
     //写入数据完成
     public static final String ACTION_DATA = "com.jpble.ACTION_DATA";
-
+    public static final String DATA_MAP = "com.bleproject.DATA_MAP";
 
     public final static String TRACKING_INTERVAL = "TrackingInterval";//追踪时间
-    public final static String GPS = "GPS";//gps
+    public final static String GPS = "com.jpble.utils.GPS";//gps
+    public final static String STARTED_RIDING = "com.jpble.utils.STARTED_RIDING";//开始骑行
+    public final static String END_RIDING = "com.jpble.utils.END_RIDING";//开始骑行
     public final static String VIBRATION_LEVEL = "VibrationLevel";//震动等级
-    public final static String VIBRATION_SWITCH = "VibrationSwitch";//震动开关
+    public final static String VIBRATION_SWITCH = "COM.JPBLE.UTILS.VIBRATIONSWITCH";//震动开关
     public final static String LOCK_STATUS = "LockStatus";//锁车状态
     public final static String SECURITY_SWITCH = "SecuritySwitch";//防盗开关
     public final static String DEVICE_INFO = "DeviceInfo";//防盗开关
-
+    public final static String EXTRA_STATUS = "com.bleproject.EXTRA_STATUS";
 
     /**
      * 协议服务的UUID
      */
-    public final static UUID UUID_SERVICE = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
+    public final static UUID UUID_SERVICE = UUID.fromString("90400001-b5a3-f393-e0a9-e50e24dcca9e");
     /**
      * 控制功能, write 属性<br />
      */
-    public final static UUID UUID_CHARACTERISTIC_CONTROL = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
+    public final static UUID UUID_CHARACTERISTIC_CONTROL = UUID.fromString("90400002-b5a3-f393-e0a9-e50e24dcca9e");
 
     /**
      * 实时数据，notify属性<br />
      */
-    public final static UUID UUID_CHARACTERISTIC_NOTIFY_DATA = UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");
+    public final static UUID UUID_CHARACTERISTIC_NOTIFY_DATA = UUID.fromString("90400003-b5a3-f393-e0a9-e50e24dcca9e");
 
     public static String getData(String msg) {
         byte[] data;
@@ -69,19 +73,20 @@ public class Constant {
     }
 
     public static String jiami(String tou, int num, String msg) {
+        MyApplication.newInstance().wri = msg;
         byte num1 = (byte) ((byte) num + 0x32);
         byte[] data = hexStringToBytes(msg);
         byte[] bytes = new byte[data.length];
         for (int i = 0; i < data.length; i++) {
             bytes[i] = (byte) (data[i] ^ (byte) num);
-          //  Log.e(TAG, bytes[i] + "");
+            //  Log.e(TAG, bytes[i] + "");
         }
         String msg2 = getData(tou + ToHex.byteToHex(num1) + ToHex.bytesToHex(bytes));
-        Log.e("jiami", msg + " " + ToHex.byteToHex(num1) + " " + msg2);
+        Log.e("jiami", msg + " " + num + " " + msg2);
         return msg2;
     }
 
-    public static  byte[] jiemi(byte[] msg) {
+    public static byte[] jiemi(byte[] msg) {
         byte[] data = new byte[msg.length - 4];
         byte num = (byte) (msg[1] - 0x32);
         for (int i = 2, j = 0; i < msg.length - 2; i++, j++) {
@@ -90,11 +95,12 @@ public class Constant {
         Log.e("jiemi", ToHex.bytesToHex(data));
         return data;
     }
+
     /**
      * 关闭软键盘
      *
      * @param mEditText 输入框
-     * @param mContext 上下文
+     * @param mContext  上下文
      */
     public static void closeKeybord(EditText mEditText, Context mContext) {
         InputMethodManager imm = (InputMethodManager) mContext

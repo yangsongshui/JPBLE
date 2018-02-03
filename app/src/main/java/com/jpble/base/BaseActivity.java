@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends FragmentActivity {
 
     Toastor toastor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,7 @@ public abstract class BaseActivity extends FragmentActivity {
         //用于显示当前位于哪个活动
         Log.d("BaseActivity", getClass().getSimpleName());
         init();
-        toastor=new Toastor(this);
+        toastor = new Toastor(this);
     }
 
     @Override
@@ -40,7 +41,8 @@ public abstract class BaseActivity extends FragmentActivity {
 
     //初始化
     protected abstract void init();
-    public void showToastor(String msg){
+
+    public void showToastor(String msg) {
         toastor.showSingletonToast(msg);
     }
 
@@ -79,6 +81,7 @@ public abstract class BaseActivity extends FragmentActivity {
         }
 
     }
+
     /***
      * 判断email格式是否正确
      */
@@ -89,4 +92,6 @@ public abstract class BaseActivity extends FragmentActivity {
 
         return m.matches();
     }
+
+
 }

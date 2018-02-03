@@ -34,6 +34,7 @@ public class CodeActivity extends BaseActivity implements CodeView {
     String mail;
     RegiserPresenterImp regiserPresenterImp;
     ProgressDialog progressDialog;
+    int type = 0;
 
     @Override
     protected int getContentView() {
@@ -42,7 +43,9 @@ public class CodeActivity extends BaseActivity implements CodeView {
 
     @Override
     protected void init() {
+        type = getIntent().getIntExtra("type", 0);
         progressDialog = new ProgressDialog(this);
+
         progressDialog.setMessage(getString(R.string.login_msg7));
         psw = getIntent().getStringExtra("psw");
         mail = getIntent().getStringExtra("mail");
@@ -64,7 +67,10 @@ public class CodeActivity extends BaseActivity implements CodeView {
                 finish();
                 break;
             case R.id.code_next:
-                reguster();
+                if (code.length() == 6)
+                    reguster();
+                else
+                    showToastor(getString(R.string.code_msg1));
                 break;
             default:
                 break;
@@ -73,7 +79,13 @@ public class CodeActivity extends BaseActivity implements CodeView {
 
     private void reguster() {
         Map<String, String> map = new HashMap<>();
-        String url = BASE_URL + "register/10001/" + code;
+        String url;
+        if (type == 1) {
+            url = BASE_URL + "register/10001/" + code;
+        } else {
+            url = BASE_URL + "register/10002/" + code;
+        }
+
         map.put("code", code);
         map.put("email", mail);
         map.put("password", MD5.getMD5(psw));
@@ -94,11 +106,17 @@ public class CodeActivity extends BaseActivity implements CodeView {
     @Override
     public void loadDataSuccess(Code tData) {
         if (tData.getCode() == 200) {
-            showToastor(getString(R.string.login_msg9));
-            SpUtils.putString("phone", mail);
-            SpUtils.putString("psw", psw);
-            startActivity(new Intent(this, SucceedActivity.class));
-            finish();
+            if (type == 1) {
+                showToastor(getString(R.string.login_msg9));
+                SpUtils.putString("phone", mail);
+                SpUtils.putString("psw", psw);
+                startActivity(new Intent(this, SucceedActivity.class));
+                finish();
+            } else {
+                showToastor(getString(R.string.login_msg23));
+                finish();
+            }
+
         } else {
             err(tData.getCode());
         }
@@ -109,6 +127,7 @@ public class CodeActivity extends BaseActivity implements CodeView {
         Log.e("loadDataError", throwable.getMessage());
         showToastor(getString(R.string.login_msg10));
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

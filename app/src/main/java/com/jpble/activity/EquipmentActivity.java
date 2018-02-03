@@ -52,42 +52,15 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
         toastor = new Toastor(this);
         linkBLE = MyApplication.newInstance().getBleManager();
         pd = new ProgressDialog(this);
-        pd.setMessage("操作中...");
+        pd.setMessage(getString(R.string.device_done8));
         initView();
-
         editDialog = new EditDialog(this, dialog);
         editDialog.setOnClickListener(this);
-   /*     radioDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (radioDialog.getCheck()) {
-                    case R.id.radio_a:
-                        gears = "01";
-
-                        break;
-                    case R.id.radio_b:
-                        gears = "02";
-
-                        break;
-                    case R.id.radio_c:
-                        gears = "03";
-
-                        break;
-                    default:
-                        break;
-                }
-                SpUtils.putString(VIBRATION_LEVEL, gears);
-                String key = MyApplication.newInstance().KEY + "1207000000" + gears + "000000";
-                linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
-                radioDialog.dismiss();
-                pd.show();
-            }
-        });*/
         initBroadcastReceiver();
     }
 
 
-    @OnClick({R.id.trip_return, R.id.equipment_time_ll})
+    @OnClick({R.id.trip_return, R.id.equipment_time_ll, R.id.equipment_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.trip_return:
@@ -95,6 +68,9 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.equipment_time_ll:
                 editDialog.show();
+                break;
+            case R.id.equipment_iv:
+                finish();
                 break;
             default:
                 break;
@@ -134,12 +110,12 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
             public void onStopTrackingTouch(SeekBar seekBar) {
                 String key;
                 if (seekBar.getProgress() == 0) {
-                    key = MyApplication.newInstance().KEY + "120700000100" + "000000";
+                    key = MyApplication.newInstance().KEY + "120700000200" + "000000";
                     linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
                 } else {
                     String gears = "0" + seekBar.getProgress();
                     SpUtils.putString(VIBRATION_LEVEL, gears);
-                    key = MyApplication.newInstance().KEY + "1207000000" + gears + "000000";
+                    key = MyApplication.newInstance().KEY + "1207000001" + gears + "000000";
                 }
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), key));
 
