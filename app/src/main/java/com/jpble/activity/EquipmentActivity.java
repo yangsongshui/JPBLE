@@ -26,6 +26,7 @@ import butterknife.OnClick;
 import static com.jpble.R.style.dialog;
 import static com.jpble.utils.Constant.ACTION_BLE_KEY_OPERATE_SUCCESSFULLY;
 import static com.jpble.utils.Constant.ACTION_BLE_KEY_OPERATION_FAILURE;
+import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
 import static com.jpble.utils.Constant.TRACKING_INTERVAL;
 import static com.jpble.utils.Constant.VIBRATION_LEVEL;
 import static com.jpble.utils.ToHex.StringToHex3;
@@ -143,6 +144,7 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_KEY_OPERATION_FAILURE);
         intentFilter.addAction(ACTION_BLE_KEY_OPERATE_SUCCESSFULLY);
+        intentFilter.addAction(EQUIPMENT_DISCONNECTED);
         registerReceiver(notifyReceiver, intentFilter);
 
     }
@@ -161,6 +163,8 @@ public class EquipmentActivity extends BaseActivity implements View.OnClickListe
                 //  toastor.showSingletonToast("");
             } else if (ACTION_BLE_KEY_OPERATION_FAILURE.equals(intent.getAction())) {
 
+            }else if (EQUIPMENT_DISCONNECTED.equals(intent.getAction())){
+                toastor.showSingletonToast(getString(R.string.ble_disconnect));
             }
 
             if (pd.isShowing()) {

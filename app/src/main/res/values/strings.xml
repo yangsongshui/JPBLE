@@ -154,7 +154,9 @@
     <string name="activity_close_device">シャットダウン</string>
     <string name="activity_close_device_info">デバイスをシャットダウンするとBluetoothでデバイスを検索することはできません。</string>
     <string name="activity_close_device_info_2">&#160;&#160;&#160;&#160;このデバイスを起動するには、デバイスの電源をONにし、Bluetoothの再接続を行ってください。</string>
-
+    <string name="no_msg1">"振動は “%s”"</string>
+    <string name="no_msg2">"“%s” 電源が低すぎます"</string>
+    <string name="no_title">低バッテリ警告</string>
     <string name="activity_cancel_matching">キャンセルペアリング</string>
     <string name="activity_cancel_matching_info">キャンセルペアリングとは、ユーザーを変更する際必要な操作です。.</string>
     <string name="activity_btn_cancel_pairing">キャンセルペアリング</string>

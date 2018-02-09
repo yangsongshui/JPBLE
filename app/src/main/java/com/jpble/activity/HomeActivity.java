@@ -131,11 +131,13 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
 
             @Override
             public void onDrawerOpened(View drawerView) {
+
                 scanLeDevice(true);
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
+                adapter.initRssi();
                 scanLeDevice(false);
             }
 
@@ -326,9 +328,9 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     private void scanLeDevice(final boolean enable) {
+
         if (enable) {
             //搜索置顶服务BLE设备
-            adapter.initRssi();
             mBluetoothAdapter.startLeScan(mLeScanCallback);
         } else {
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
@@ -361,7 +363,6 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         intentFilter.addAction(SUCCESSFUL_DEVICE_CONNECTION);
         intentFilter.addAction(EQUIPMENT_DISCONNECTED);
         intentFilter.addAction(VIBRATION_SWITCH);
-
         intentFilter.addAction(ACTION_BLE_KEY_OPERATE_SUCCESSFULLY);
         registerReceiver(notifyReceiver, intentFilter);
     }

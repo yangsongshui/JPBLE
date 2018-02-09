@@ -38,7 +38,7 @@
             android:layout_marginTop="5dp"
             android:text="100%"
             android:textColor="@color/black"
-            android:visibility="gone" />
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/security_electricity"

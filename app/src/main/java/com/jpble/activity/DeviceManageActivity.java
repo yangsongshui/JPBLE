@@ -26,7 +26,9 @@ import com.jpble.view.CodeView;
 import butterknife.OnClick;
 
 import static com.jpble.utils.Constant.BASE_URL;
+import static com.jpble.utils.Constant.CANCEL_THE_PAIRING;
 import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
+import static com.jpble.utils.Constant.POWER_OFF;
 
 public class DeviceManageActivity extends BaseActivity {
 
@@ -60,7 +62,7 @@ public class DeviceManageActivity extends BaseActivity {
             public void run() {
                 MyApplication.newInstance().bindMac = "";
                 linkBLE.closeBle();
-
+                showUnConnectDialog();
             }
         };
 
@@ -109,6 +111,8 @@ public class DeviceManageActivity extends BaseActivity {
             public void loadDataSuccess(Code tData) {
                 if (tData.getCode() != 200)
                     err(tData.getCode());
+
+
                 finish();
             }
 
@@ -176,6 +180,8 @@ public class DeviceManageActivity extends BaseActivity {
     private void initBroadCast() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(EQUIPMENT_DISCONNECTED);
+        intentFilter.addAction(CANCEL_THE_PAIRING);
+        intentFilter.addAction(POWER_OFF);
         registerReceiver(notifyReceiver, intentFilter);
     }
 
@@ -203,9 +209,10 @@ public class DeviceManageActivity extends BaseActivity {
         builder.setPositiveButton(R.string.activity_dialog_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                progressDialog.show();
                 String msg = MyApplication.newInstance().KEY + "13020001";
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), msg));
-                handler.postDelayed(myRunnable, 2000);
+
             }
         });
         builder.setNegativeButton(R.string.activity_dialog_cancel, new DialogInterface.OnClickListener() {
@@ -227,7 +234,7 @@ public class DeviceManageActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String msg = MyApplication.newInstance().KEY + "13020100";
                 linkBLE.write(Constant.jiami("FE", ToHex.random(), msg));
-                delete();
+
             }
         });
         builder.setNegativeButton(R.string.activity_dialog_cancel, new DialogInterface.OnClickListener() {
@@ -247,7 +254,13 @@ public class DeviceManageActivity extends BaseActivity {
             Log.e("收到设备信息广播", intent.getAction());
             //设备
             if (EQUIPMENT_DISCONNECTED.equals(intent.getAction())) {
-                showUnConnectDialog();
+                // showUnConnectDialog();
+            } else if (POWER_OFF.equals(intent.getAction())) {
+                progressDialog.dismiss();
+                handler.post(myRunnable);
+            } else if (CANCEL_THE_PAIRING.equals(intent.getAction())) {
+                linkBLE.closeBle();
+                delete();
             }
         }
     };

@@ -30,9 +30,7 @@ public class MyAssetActivity extends BaseActivity implements OnItemListener {
         adapter=new AssetAdapter(this);
         myAssetRv.setAdapter(adapter);
         adapter.setOnItemCheckListener(this);
-       // adapter.setDevice(new Device("设备1",false,true));
-        //adapter.setDevice(new Device("设备2",true,true));
-        //adapter.setDevice(new Device("设备3",true,false));
+
 
     }
 

@@ -74,7 +74,7 @@ public class MeFragment extends BaseFragment {
         getActivity().registerReceiver(notifyReceiver, intentFilter);
         meEmailTv.setText(SpUtils.getString("phone", ""));
         meNameTv.setText(SpUtils.getString("name", "name"));
-
+        aboutMsg2.setText(String.format(getString(R.string.about_msg2),    MyApplication.newInstance().v));
     }
 
     @Override
@@ -126,7 +126,7 @@ public class MeFragment extends BaseFragment {
             if (EXTRA_STATUS.equals(intent.getAction())) {
                 //收到设备信息
                 DeviceState deviceState = (DeviceState) intent.getSerializableExtra(EXTRA_STATUS);
-                String v = deviceState.getBanben() + "." + (deviceState.getBanben2().trim().isEmpty() ? "0" : deviceState.getBanben2());
+                String v = deviceState.getBanben() + "." + deviceState.getBanben2();
                 aboutMsg2.setText(String.format(getString(R.string.about_msg2), v));
             }
         }

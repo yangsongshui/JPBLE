@@ -28,6 +28,8 @@ public class Constant {
     public static final String EQUIPMENT_DISCONNECTED = "com.jpble.EQUIPMENT_DISCONNECTED";
     //发送设备数据广播
     public static final String ACTION_BLE_NOTIFY_DATA = "ccom.jpble.ACTION_BLE_NOTIFY_DATA";
+    public static final String POWER_OFF = "ccom.jpble.POWER_OFF";
+    public static final String CANCEL_THE_PAIRING = "ccom.jpble.CANCEL_THE_PAIRING";
 
     //指令操作广播
     public static final String ACTION_BLE_KEY_OPERATE_SUCCESSFULLY = "com.jpble.ACTION_BLE_KEY_OPERATE_SUCCESSFULLY";

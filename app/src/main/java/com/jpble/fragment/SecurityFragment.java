@@ -1,12 +1,16 @@
 package com.jpble.fragment;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,20 +37,20 @@ import com.jpble.view.CodeView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
 import static com.jpble.utils.Constant.EXTRA_STATUS;
 import static com.jpble.utils.Constant.SECURITY_SWITCH;
 
 
-public class SecurityFragment extends BaseFragment implements CodeView{
+public class SecurityFragment extends BaseFragment implements CodeView {
 
 
     @BindView(R.id.security_schema)
     ImageView securitySchema;
     @BindView(R.id.security_electricity)
     ImageView securityElectricity;
-    @BindView(R.id.security_dianliang)
-    TextView securityDianliang;
+
     @BindView(R.id.security_message)
     CheckBox securityMessage;
 
@@ -81,7 +85,7 @@ public class SecurityFragment extends BaseFragment implements CodeView{
         securityMessage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (linkBLE.isLink()){
+                if (linkBLE.isLink()) {
                     String msg = MyApplication.newInstance().KEY + "1207" + (isChecked ? "01" : "02") + "000000000000";
                     linkBLE.write(Constant.jiami("FE", ToHex.random(), msg));
                     SpUtils.putBoolean(SECURITY_SWITCH, isChecked);
@@ -148,18 +152,18 @@ public class SecurityFragment extends BaseFragment implements CodeView{
                 securitySchema.setImageResource(R.drawable.bluetooth_gps_bluetooth);
                 //收到设备信息
                 DeviceState deviceState = (DeviceState) intent.getSerializableExtra(EXTRA_STATUS);
-                getVoltage(deviceState.getDianchi());
+                getCurBatteryValue((deviceState.getDianchi() * 100));
                 securityMessage.setChecked(deviceState.getKaiguan().equals("01"));
                 security_name.setText(MyApplication.newInstance().name);
             } else if (EQUIPMENT_DISCONNECTED.equals(intent.getAction())) {
-                securityDianliang.setVisibility(View.GONE);
+                // securityDianliang.setVisibility(View.GONE);
                 securitySchema.setImageResource(R.drawable.bluetooth_gps_none);
                 securityElectricity.setVisibility(View.GONE);
             }
         }
     };
 
-    private void getVoltage(int voltage) {
+    /*private void getVoltage(int voltage) {
         securityDianliang.setVisibility(View.VISIBLE);
         securityElectricity.setVisibility(View.VISIBLE);
         Log.e("电量", voltage + "");
@@ -178,7 +182,49 @@ public class SecurityFragment extends BaseFragment implements CodeView{
         } else {
             securityElectricity.setImageResource(R.drawable.battery_90);
         }
+    }*/
+
+    public void getCurBatteryValue(int curVoltage) {
+        securityElectricity.setVisibility(View.VISIBLE);
+        Log.i(TAG, "getCurBatteryValue: " + curVoltage);
+        if (curVoltage <= 3500) {
+            sendNotification(curVoltage);
+            securityElectricity.setImageResource(R.drawable.battery_0);
+        } else if (curVoltage <= 3700) {
+            securityElectricity.setImageResource(R.drawable.battery_10);
+            sendNotification(curVoltage);
+        } else if (curVoltage <= 3800) {
+            securityElectricity.setImageResource(R.drawable.battery_20);
+        } else if (curVoltage <= 3900) {
+            securityElectricity.setImageResource(R.drawable.battery_40);
+        } else if (curVoltage <= 4000) {
+            securityElectricity.setImageResource(R.drawable.battery_60);
+        } else {
+            securityElectricity.setImageResource(R.drawable.battery_90);
+
+        }
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // securityDianliang.setVisibility(View.GONE);
+        securitySchema.setImageResource(R.drawable.bluetooth_gps_none);
+        securityElectricity.setVisibility(View.GONE);
+    }
 
+    private void sendNotification( int id) {
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(getActivity())
+                        .setSmallIcon(R.mipmap.logo)
+                        .setContentTitle(getActivity().getString(R.string.no_title))
+                        .setContentText(String.format(getString(R.string.no_msg2),MyApplication.newInstance().name))
+                        .setAutoCancel(true)
+                        .setSound(defaultSoundUri);
+        NotificationManager notificationManager =
+                (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(id, notificationBuilder.build());
+    }
 }

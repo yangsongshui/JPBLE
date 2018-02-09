@@ -149,6 +149,9 @@
     <string name="register_tos">Incorrect password</string>
     <string name="device_done10">"Test network…"</string>
     <string name="code_msg1">Code error</string>
+    <string name="no_msg1">"Vibration was sensed with “%s”"</string>
+    <string name="no_msg2">"“%s” Power is too low"</string>
+    <string name="no_title">Low battery warning</string>
     <!--device manage-->
     <string name="activity_btn_close">Shut down</string>
     <string name="activity_close_device">Shut down</string>

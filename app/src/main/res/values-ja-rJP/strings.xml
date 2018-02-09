@@ -101,6 +101,9 @@
     <string name="radio_a">1 歯車</string>
     <string name="radio_b">2 歯車</string>
     <string name="radio_c">3 歯車</string>
+    <string name="no_msg1">"振動は “%s”"</string>
+    <string name="no_msg2">"“%s” 電源が低すぎます"</string>
+    <string name="no_title">低バッテリ警告</string>
     <string name="code_msg1">コードエラー</string>
     <string name="device_done10">"テストネットワーク…"</string>
     <string name="user_group2">ギアセット</string>

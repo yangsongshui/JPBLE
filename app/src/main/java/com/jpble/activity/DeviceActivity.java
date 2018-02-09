@@ -137,6 +137,8 @@ public class DeviceActivity extends BaseActivity implements AddCodeView {
                             .putExtra("id", String.valueOf(tData.getData().getCardId())).putExtra("type", deviceRg.getCheckedRadioButtonId() == R.id.device_none ? "APN" : "ALL")
                             .putExtra("name", name).putExtra("mac", MyApplication.newInstance().bindMac).putExtra("msg", msg));
                     finish();
+                }else {
+                    err(tData.getCode());
                 }
             }
 
@@ -332,29 +334,29 @@ public class DeviceActivity extends BaseActivity implements AddCodeView {
     @Override
     public void loadDataSuccess(AddCode tData) {
         Log.e("Code", tData.toString());
-        Map<String, String> map = new HashMap();
-        map.put("number", deviceImsi.getText().toString());
-        map.put("apn", deviceApn.getText().toString());
-        map.put("password", AESUtil.aesEncrypt(devicePsw.getText().toString(), PHONE_KEY));
-        map.put("token", MyApplication.newInstance().getUser().getData().getToken());
-        map.put("authType", deviceRg.getCheckedRadioButtonId() == R.id.device_none ? "APN" : "ALL");
-        lockId = String.valueOf(tData.getData().getLockId());
-        map.put("lockId", lockId);
-        map.put("account", deviceId.getText().toString());
-        addSimgPresenterImp.register(map);
-        /*if (tData.getCode() == 200) {
-            startActivity(new Intent(DeviceActivity.this, AssetInfoActivity.class)
-                    .putExtra("id", tData.getData().getLockId()).putExtra("type", deviceRg.getCheckedRadioButtonId() == R.id.device_none ? "APN" : "ALL")
-                    .putExtra("name", name).putExtra("mac", MyApplication.newInstance().bindMac).putExtra("msg", msg));
-            finish();
-        }*/
+
+        if (tData.getCode() == 200) {
+            Map<String, String> map = new HashMap();
+            map.put("number", deviceImsi.getText().toString());
+            map.put("apn", deviceApn.getText().toString());
+            map.put("password", AESUtil.aesEncrypt(devicePsw.getText().toString(), PHONE_KEY));
+            map.put("token", MyApplication.newInstance().getUser().getData().getToken());
+            map.put("authType", deviceRg.getCheckedRadioButtonId() == R.id.device_none ? "APN" : "ALL");
+            lockId = String.valueOf(tData.getData().getLockId());
+            map.put("lockId", lockId);
+            map.put("account", deviceId.getText().toString());
+            addSimgPresenterImp.register(map);
+        }else {
+            pd.dismiss();
+            err(tData.getCode());
+        }
     }
 
 
     @Override
     public void loadDataError(Throwable throwable) {
         pd.dismiss();
-        Log.e("loadDataError", throwable.getMessage());
+     //   Log.e("loadDataError", throwable.getMessage());
         showToastor(getString(R.string.login_msg10));
     }
 

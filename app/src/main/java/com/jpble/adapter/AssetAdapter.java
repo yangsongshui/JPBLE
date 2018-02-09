@@ -119,6 +119,7 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.ViewHolder> 
         for (int i = 0; i < data.size(); i++) {
             map.put(data.get(i).getLockVo().getMac(), -200);
         }
+        notifyDataSetChanged();
     }
     public void setMap(String mac, int rssi) {
         map.put(mac, rssi);

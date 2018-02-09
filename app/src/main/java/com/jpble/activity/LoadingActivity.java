@@ -1,14 +1,9 @@
 package com.jpble.activity;
 
 import android.Manifest;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -167,7 +162,7 @@ public class LoadingActivity extends BaseActivity {
                         int width = size.x;
                         if (currentItem == (imageID.length - 1) && startX - endX >= (width / 4)) {
                             SpUtils.putBoolean("one", false);
-                            startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+                           // startActivity(new Intent(LoadingActivity.this, MainActivity.class));
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
                             finish();//进入主页
                         }
@@ -199,7 +194,7 @@ public class LoadingActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 startActivity(new Intent(LoadingActivity.this, MainActivity.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+             //   overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
                 finish();//进入主页
             }
 
@@ -241,23 +236,4 @@ public class LoadingActivity extends BaseActivity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    private void sendNotification(String title, String messageBody, String orderId) {
-        Intent intent = new Intent(this, MapsActivity.class).putExtra("id",orderId);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.logo)
-                        .setContentTitle(title)
-                        .setContentText(messageBody)
-                        .setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent);
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(Integer.parseInt(orderId) /* ID of notification */, notificationBuilder.build());
-    }
 }

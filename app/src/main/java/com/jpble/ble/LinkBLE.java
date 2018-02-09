@@ -28,9 +28,11 @@ import static com.jpble.utils.Constant.ACTION_BLE_KEY_OPERATE_SUCCESSFULLY;
 import static com.jpble.utils.Constant.ACTION_BLE_KEY_OPERATION_FAILURE;
 import static com.jpble.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 import static com.jpble.utils.Constant.ACTION_DATA;
+import static com.jpble.utils.Constant.CANCEL_THE_PAIRING;
 import static com.jpble.utils.Constant.DEVICE_INFO;
 import static com.jpble.utils.Constant.EQUIPMENT_DISCONNECTED;
 import static com.jpble.utils.Constant.EXTRA_STATUS;
+import static com.jpble.utils.Constant.POWER_OFF;
 import static com.jpble.utils.Constant.SUCCESSFUL_DEVICE_CONNECTION;
 import static com.jpble.utils.Constant.UUID_CHARACTERISTIC_CONTROL;
 import static com.jpble.utils.Constant.UUID_CHARACTERISTIC_NOTIFY_DATA;
@@ -208,6 +210,7 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
         Intent intent = new Intent();
         intent.setAction(EQUIPMENT_DISCONNECTED);
         context.sendBroadcast(intent);
+
         Log.e(TAG, "设备已断开");
     }
 
@@ -278,7 +281,14 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
                     context.sendBroadcast(intent);
                     break;
                 case 0x13:
-
+                    if(bytes[3] == 0x01){
+                        intent.setAction(CANCEL_THE_PAIRING);
+                        context.sendBroadcast(intent);
+                    }
+                    if (bytes[4] == 0x01){
+                        intent.setAction(POWER_OFF);
+                        context.sendBroadcast(intent);
+                    }
                     break;
                 case 0x14:
                     Log.e("getData1", byteToHex(bytes[3]));
@@ -305,9 +315,11 @@ public class LinkBLE implements BluetoothLeClass.OnDisconnectListener {
                     String dengji = byteToHex(bytes[7]);//震动等级
                     byteToHex(bytes[8]);//gps
                     String time = bytesToHex(new byte[]{bytes[9], bytes[10]});//定位间隔
-                    byteToHex(bytes[11]);//是否有旧数据
-                    String banben = new String(new byte[]{bytes[12]});//主版本号
-                    String banben2 = new String(new byte[]{bytes[13]});//次版本号
+
+                    String banben = new String(new byte[]{bytes[11]});//主版本号
+                    String banben2 = new String(new byte[]{bytes[12]});//次版本号
+                    MyApplication.newInstance().v=banben+","+banben2;
+                    Log.e("版本",banben+","+banben2+" "+ " "+byteToHex(bytes[12])+" "+byteToHex(bytes[12]));
                     byteToHex(bytes[14]);//版本修改次数
                     DeviceState deviceState = new DeviceState();
                     deviceState.setDianchi(dianliang);

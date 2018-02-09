@@ -26,12 +26,13 @@ public class MyApplication extends Application {
     public String deviceKey = "";
     public String KEY;
     public String updateKey = "";
-    public String msg="";
-    public String id="";
-    public String carId="";
-    public String name="";
-    public String wri="";
-    public String psw="";
+    public String msg = "";
+    public String id = "";
+    public String carId = "";
+    public String name = "";
+    public String wri = "";
+    public String psw = "";
+    public String v = "1.0";
     /**
      * 是否连接绑定了设备
      */
@@ -39,11 +40,12 @@ public class MyApplication extends Application {
     public String bindMac;
     private LinkBLE linkBLE;
     private User user;
-    public List<LatLng> latLng=new ArrayList<>();
+    public List<LatLng> latLng = new ArrayList<>();
     public LatLng startLng;
     public LatLng endLng;
-    public boolean scearch=true;
-    public boolean cycling=true;
+    public boolean scearch = true;
+    public boolean cycling = true;
+
     /**
      * 获取单例
      *
